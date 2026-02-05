@@ -1,0 +1,109 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Determine Project Name
+        id: meta
+        # Uses repo name (e.g., 'website-starter')
+        run: echo "NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)" >> $GITHUB_OUTPUT
+
+      - name: Create Project (if not exists)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WEBSITE_STARTER_CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: ${{ steps.meta.outputs.NAME }}
+        run: wrangler pages project create "$PROJECT_NAME" --production-branch main || true
+
+      - name: Publish to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WEBSITE_STARTER_CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: ${{ steps.meta.outputs.NAME }}
+        run: wrangler pages deploy . --project-name "$PROJECT_NAME" --branch main
+
+      # --- NEW STEP: FETCH ACTUAL SUBDOMAIN ---
+      - name: Get Assigned Pages Subdomain
+        id: project_details
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WEBSITE_STARTER_CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: ${{ steps.meta.outputs.NAME }}
+        run: |
+          # Query API to get the real assigned subdomain (e.g., website-starter.pages.dev)
+          RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT_NAME" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json")
+
+          # Extract subdomain using jq
+          SUBDOMAIN=$(echo "$RESPONSE" | jq -r '.result.subdomain')
+
+          echo "Cloudflare assigned subdomain: $SUBDOMAIN"
+          echo "SUBDOMAIN=$SUBDOMAIN" >> $GITHUB_OUTPUT
+
+      - name: Assign Custom Domain (via API)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WEBSITE_STARTER_CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: ${{ steps.meta.outputs.NAME }}
+          DOMAIN: "${{ steps.meta.outputs.NAME }}.apps.owid.io"
+        run: |
+          echo "Linking domain $DOMAIN to project $PROJECT_NAME..."
+          curl -f -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT_NAME/domains" \
+          -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+          -H "Content-Type: application/json" \
+          --data "{\"name\":\"$DOMAIN\"}" || true
+
+      - name: Force DNS Record Creation
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WEBSITE_STARTER_CLOUDFLARE_API_TOKEN }}
+          DOMAIN: "${{ steps.meta.outputs.NAME }}.apps.owid.io"
+          TARGET: ${{ steps.project_details.outputs.SUBDOMAIN }}
+          ZONE_NAME: "owid.io"
+        run: |
+          echo "Ensuring DNS record for $DOMAIN points to $TARGET..."
+
+          # 1. Get Zone ID
+          ZONE_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=$ZONE_NAME" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" | jq -r '.result[0].id')
+
+          # 2. Check if record exists
+          RECORD_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$DOMAIN" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" | jq -r '.result[0].id')
+
+          # 3. Create Record if missing
+          if [ "$RECORD_ID" == "null" ]; then
+            echo "Creating CNAME: $DOMAIN -> $TARGET"
+            curl -f -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data "{\"type\":\"CNAME\",\"name\":\"$DOMAIN\",\"content\":\"$TARGET\",\"proxied\":true,\"ttl\":1}"
+          else
+            echo "Record exists. Skipping."
+          fi
