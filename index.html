@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -31,38 +31,38 @@
         .header {
             background: linear-gradient(135deg, #4A90E2 0%, #2E5F8A 100%);
             color: white;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: 8px;
         }
 
         .header p {
-            font-size: 1.1em;
+            font-size: 1em;
             opacity: 0.9;
         }
 
         .content {
             display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 30px;
-            padding: 30px;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            padding: 20px;
         }
 
         .products-panel {
             border-right: 2px solid #e5e7eb;
-            padding-right: 30px;
-            max-height: 700px;
+            padding-right: 20px;
+            max-height: 500px;
             overflow-y: auto;
         }
 
         .products-panel h2 {
             color: #2E5F8A;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
         .product-item {
@@ -152,21 +152,21 @@
         }
 
         .chart-panel {
-            padding-left: 30px;
+            padding-left: 20px;
         }
 
         .chart-panel h2 {
             color: #2E5F8A;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
         .chart-container {
             position: relative;
-            height: 600px;
+            height: 500px;
             background: #f9fafb;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
         }
 
         .no-data {
@@ -241,7 +241,7 @@
                 border-right: none;
                 border-bottom: 2px solid #e5e7eb;
                 padding-right: 0;
-                padding-bottom: 30px;
+                padding-bottom: 20px;
                 max-height: none;
             }
 
@@ -566,7 +566,7 @@
                         label: 'Electricity Use (Wh)',
                         data: energyValues,
                         backgroundColor: colors,
-                        borderColor: colors.map(c => c.replace('0.8', '1')),
+                        borderColor: colors,
                         borderWidth: 2
                     }]
                 },
@@ -654,16 +654,16 @@
 
         function getColor(index) {
             const colors = [
-                'rgba(102, 126, 234, 0.8)',
-                'rgba(118, 75, 162, 0.8)',
-                'rgba(237, 100, 166, 0.8)',
-                'rgba(255, 154, 158, 0.8)',
-                'rgba(250, 208, 196, 0.8)',
-                'rgba(52, 211, 153, 0.8)',
-                'rgba(251, 191, 36, 0.8)',
-                'rgba(248, 113, 113, 0.8)',
-                'rgba(96, 165, 250, 0.8)',
-                'rgba(167, 139, 250, 0.8)'
+                'rgba(102, 126, 234, 1)',
+                'rgba(118, 75, 162, 1)',
+                'rgba(237, 100, 166, 1)',
+                'rgba(255, 154, 158, 1)',
+                'rgba(250, 208, 196, 1)',
+                'rgba(52, 211, 153, 1)',
+                'rgba(251, 191, 36, 1)',
+                'rgba(248, 113, 113, 1)',
+                'rgba(96, 165, 250, 1)',
+                'rgba(167, 139, 250, 1)'
             ];
             return colors[index % colors.length];
         }
