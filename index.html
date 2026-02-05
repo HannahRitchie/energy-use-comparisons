@@ -157,8 +157,14 @@
 
         .chart-panel h2 {
             color: #2E5F8A;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             font-size: 1.3em;
+        }
+
+        .chart-subtitle {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-bottom: 15px;
         }
 
         .chart-container {
@@ -269,7 +275,8 @@
             </div>
 
             <div class="chart-panel">
-                <h2>Electricity Comparison (Wh)</h2>
+                <h2>Electricity consumption</h2>
+                <p class="chart-subtitle">Estimates measured in watt-hours (Wh).</p>
                 <div class="chart-container">
                     <canvas id="energyChart"></canvas>
                     <div class="no-data" id="noData">Select products to compare their electricity use</div>
