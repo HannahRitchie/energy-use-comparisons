@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Does that use a lot of electricity?</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #8b9dc3 0%, #9d92b8 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8b9dc3 0%, #9d92b8 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .products-panel {
+            border-right: 2px solid #e5e7eb;
+            padding-right: 30px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .products-panel h2 {
+            color: #6b7fa8;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .product-item {
+            background: #f9fafb;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-item:hover {
+            background: #f3f4f6;
+            border-color: #6b7fa8;
+        }
+
+        .product-item.selected {
+            background: #ede9fe;
+            border-color: #6b7fa8;
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .product-header input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #1f2937;
+            flex: 1;
+        }
+
+        .custom-inputs {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #d1d5db;
+            display: none;
+        }
+
+        .product-item.selected .custom-inputs {
+            display: block;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .input-group input {
+            width: 60px;
+            padding: 6px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #6b7fa8;
+        }
+
+        .input-group label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .fixed-value {
+            font-size: 13px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .chart-panel {
+            padding-left: 30px;
+        }
+
+        .chart-panel h2 {
+            color: #6b7fa8;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 600px;
+            background: #f9fafb;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .no-data {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #9ca3af;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .clear-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: #dc2626;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #6b7fa8;
+        }
+
+        .search-box input::placeholder {
+            color: #9ca3af;
+        }
+
+        .category-header {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #6b7fa8;
+            padding: 15px 0 10px 0;
+            margin-top: 15px;
+            border-bottom: 2px solid #6b7fa8;
+        }
+
+        .category-header:first-child {
+            margin-top: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .products-panel {
+                border-right: none;
+                border-bottom: 2px solid #e5e7eb;
+                padding-right: 0;
+                padding-bottom: 30px;
+                max-height: none;
+            }
+
+            .chart-panel {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Does that use a lot of electricity?</h1>
+            <p>Compare electricity consumption of different products and activities</p>
+        </div>
+
+        <div class="content">
+            <div class="products-panel">
+                <h2>Select Products</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
+                </div>
+                <div id="productsList"></div>
+                <button class="clear-btn" onclick="clearAll()">Clear All Selections</button>
+            </div>
+
+            <div class="chart-panel">
+                <h2>Electricity Comparison (Wh)</h2>
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                    <div class="no-data" id="noData">Select products to compare their electricity use</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let products = [];
+        let chart = null;
+
+        async function loadProducts() {
+            const response = await fetch('products_data.json');
+            products = await response.json();
+            renderProductsList();
+        }
+
+        function isCategory(product) {
+            return product.wattage === null && product.fixed_wh === null;
+        }
+
+        function renderProductsList() {
+            const container = document.getElementById('productsList');
+            container.innerHTML = products.map((product, index) => {
+                // Check if this is a category header
+                if (isCategory(product)) {
+                    return `
+                        <div class="category-header" id="product-${index}">
+                            ${product.name}
+                        </div>
+                    `;
+                }
+
+                // Regular product item
+                return `
+                    <div class="product-item" id="product-${index}">
+                        <div class="product-header" onclick="toggleProduct(${index})">
+                            <input type="checkbox" id="check-${index}" onclick="event.stopPropagation(); toggleProduct(${index})">
+                            <span class="product-name">${product.name}</span>
+                        </div>
+                        <div class="custom-inputs">
+                            ${renderInputs(product, index)}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            let lastCategoryIndex = -1;
+            let categoryHasVisibleItems = false;
+
+            products.forEach((product, index) => {
+                const productDiv = document.getElementById(`product-${index}`);
+
+                if (isCategory(product)) {
+                    // Hide previous category if it had no visible items
+                    if (lastCategoryIndex >= 0 && !categoryHasVisibleItems) {
+                        document.getElementById(`product-${lastCategoryIndex}`).style.display = 'none';
+                    }
+
+                    // Start tracking new category
+                    lastCategoryIndex = index;
+                    categoryHasVisibleItems = false;
+                    productDiv.style.display = 'block'; // Will hide later if no items match
+                } else {
+                    // Regular product
+                    if (product.name.toLowerCase().includes(searchTerm)) {
+                        productDiv.style.display = 'block';
+                        categoryHasVisibleItems = true;
+                    } else {
+                        productDiv.style.display = 'none';
+                    }
+                }
+            });
+
+            // Handle the last category
+            if (lastCategoryIndex >= 0 && !categoryHasVisibleItems) {
+                document.getElementById(`product-${lastCategoryIndex}`).style.display = 'none';
+            }
+        }
+
+        function renderInputs(product, index) {
+            switch(product.input_type) {
+                case 'hours':
+                    const defaultHours = Math.floor(product.default_value);
+                    const defaultMinutes = Math.round((product.default_value % 1) * 60);
+                    return `
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="number" id="input1-${index}" min="0" max="24" value="${defaultHours}" onchange="updateChart()">
+                                <label>hours</label>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" id="input2-${index}" min="0" max="59" value="${defaultMinutes}" onchange="updateChart()">
+                                <label>minutes</label>
+                            </div>
+                        </div>
+                    `;
+
+                case 'cycles':
+                    return `
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart()">
+                                <label>cycles</label>
+                            </div>
+                        </div>
+                    `;
+
+                case 'boils':
+                    return `
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart()">
+                                <label>full boils</label>
+                            </div>
+                        </div>
+                    `;
+
+                case 'queries':
+                    return `
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart()">
+                                <label>queries</label>
+                            </div>
+                        </div>
+                    `;
+
+                case 'miles':
+                    return `
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="number" id="input1-${index}" min="1" value="10" onchange="updateChart()">
+                                <label>miles</label>
+                            </div>
+                        </div>
+                    `;
+
+                case 'fixed':
+                    return `<div class="fixed-value">Fixed: ${product.fixed_wh.toFixed(1)} Wh</div>`;
+
+                default:
+                    return '';
+            }
+        }
+
+        function toggleProduct(index) {
+            // Skip if this is a category header
+            if (isCategory(products[index])) {
+                return;
+            }
+
+            const checkbox = document.getElementById(`check-${index}`);
+            const productDiv = document.getElementById(`product-${index}`);
+
+            checkbox.checked = !checkbox.checked;
+
+            if (checkbox.checked) {
+                productDiv.classList.add('selected');
+            } else {
+                productDiv.classList.remove('selected');
+            }
+
+            updateChart();
+        }
+
+        function calculateEnergy(product, index) {
+            switch(product.input_type) {
+                case 'hours':
+                    const hours = parseFloat(document.getElementById(`input1-${index}`).value) || 0;
+                    const minutes = parseFloat(document.getElementById(`input2-${index}`).value) || 0;
+                    const totalHours = hours + minutes / 60;
+                    return product.wattage * totalHours;
+
+                case 'cycles':
+                    const cycles = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
+                    return product.fixed_wh * cycles;
+
+                case 'boils':
+                    const boils = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
+                    return product.fixed_wh * boils;
+
+                case 'queries':
+                    const queries = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
+                    return product.fixed_wh * queries;
+
+                case 'miles':
+                    const miles = parseFloat(document.getElementById(`input1-${index}`).value) || 10;
+                    return product.wattage * miles;
+
+                case 'fixed':
+                    return product.fixed_wh;
+
+                default:
+                    return 0;
+            }
+        }
+
+        function getInputDescription(product, index) {
+            switch(product.input_type) {
+                case 'hours':
+                    const hours = parseFloat(document.getElementById(`input1-${index}`).value) || 0;
+                    const minutes = parseFloat(document.getElementById(`input2-${index}`).value) || 0;
+                    if (minutes === 0) {
+                        return `${hours} hour${hours !== 1 ? 's' : ''} of use`;
+                    } else if (hours === 0) {
+                        return `${minutes} minute${minutes !== 1 ? 's' : ''} of use`;
+                    } else {
+                        return `${hours}h ${minutes}m of use`;
+                    }
+
+                case 'cycles':
+                    const cycles = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
+                    return `${cycles} cycle${cycles !== 1 ? 's' : ''}`;
+
+                case 'boils':
+                    const boils = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
+                    return `${boils} boil${boils !== 1 ? 's' : ''}`;
+
+                case 'queries':
+                    const queries = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
+                    return `${queries} ${queries !== 1 ? 'queries' : 'query'}`;
+
+                case 'miles':
+                    const miles = parseFloat(document.getElementById(`input1-${index}`).value) || 10;
+                    return `${miles} mile${miles !== 1 ? 's' : ''} driven`;
+
+                case 'fixed':
+                    return 'Per day';
+
+                default:
+                    return '';
+            }
+        }
+
+        function updateChart() {
+            const selectedData = [];
+
+            products.forEach((product, index) => {
+                // Skip category headers
+                if (isCategory(product)) {
+                    return;
+                }
+
+                const checkbox = document.getElementById(`check-${index}`);
+                if (checkbox && checkbox.checked) {
+                    const energy = calculateEnergy(product, index);
+                    const description = getInputDescription(product, index);
+                    selectedData.push({
+                        name: product.name,
+                        energy: energy,
+                        color: getColor(index),
+                        description: description
+                    });
+                }
+            });
+
+            // Sort by energy value (largest to smallest)
+            selectedData.sort((a, b) => b.energy - a.energy);
+
+            // Extract sorted arrays
+            const selectedProducts = selectedData.map(d => d.name);
+            const energyValues = selectedData.map(d => d.energy);
+            const colors = selectedData.map(d => d.color);
+            const descriptions = selectedData.map(d => d.description);
+
+            const noDataDiv = document.getElementById('noData');
+            if (selectedProducts.length === 0) {
+                noDataDiv.style.display = 'flex';
+                if (chart) {
+                    chart.destroy();
+                    chart = null;
+                }
+                return;
+            }
+
+            noDataDiv.style.display = 'none';
+
+            const ctx = document.getElementById('energyChart').getContext('2d');
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: selectedProducts,
+                    datasets: [{
+                        label: 'Electricity Use (Wh)',
+                        data: energyValues,
+                        backgroundColor: colors,
+                        borderColor: colors.map(c => c.replace('0.8', '1')),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 20,
+                            right: 150
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const desc = descriptions[context.dataIndex];
+                                    return `${Math.round(context.parsed.x).toLocaleString()} Wh (${desc})`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Electricity (Wh)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                autoSkip: false,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [{
+                    id: 'barLabels',
+                    afterDatasetsDraw: function(chart) {
+                        const ctx = chart.ctx;
+                        const yScale = chart.scales.y;
+                        const xScale = chart.scales.x;
+
+                        chart.data.datasets.forEach((dataset, i) => {
+                            const meta = chart.getDatasetMeta(i);
+                            meta.data.forEach((bar, index) => {
+                                const data = dataset.data[index];
+                                const desc = descriptions[index];
+
+                                // Wh value at the end of the bar (right side)
+                                ctx.fillStyle = '#1f2937';
+                                ctx.font = 'bold 14px sans-serif';
+                                ctx.textAlign = 'left';
+                                ctx.textBaseline = 'middle';
+                                const xPosEnd = bar.x + 10;
+                                const yPos = bar.y;
+                                ctx.fillText(`${Math.round(data).toLocaleString()} Wh`, xPosEnd, yPos);
+
+                                // Usage description under the product name (left side)
+                                ctx.fillStyle = '#6b7280';
+                                ctx.font = 'italic 11px sans-serif';
+                                ctx.textAlign = 'right';
+                                ctx.textBaseline = 'top';
+                                const xPosStart = xScale.left - 5;
+                                const yPosDesc = bar.y + 8;
+                                ctx.fillText(desc, xPosStart, yPosDesc);
+                            });
+                        });
+                    }
+                }]
+            });
+        }
+
+        function getColor(index) {
+            const colors = [
+                'rgba(102, 126, 234, 0.8)',
+                'rgba(118, 75, 162, 0.8)',
+                'rgba(237, 100, 166, 0.8)',
+                'rgba(255, 154, 158, 0.8)',
+                'rgba(250, 208, 196, 0.8)',
+                'rgba(52, 211, 153, 0.8)',
+                'rgba(251, 191, 36, 0.8)',
+                'rgba(248, 113, 113, 0.8)',
+                'rgba(96, 165, 250, 0.8)',
+                'rgba(167, 139, 250, 0.8)'
+            ];
+            return colors[index % colors.length];
+        }
+
+        function clearAll() {
+            products.forEach((product, index) => {
+                // Skip category headers
+                if (isCategory(product)) {
+                    return;
+                }
+
+                const checkbox = document.getElementById(`check-${index}`);
+                const productDiv = document.getElementById(`product-${index}`);
+                if (checkbox) {
+                    checkbox.checked = false;
+                    productDiv.classList.remove('selected');
+                }
+            });
+            updateChart();
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
