@@ -906,11 +906,9 @@
             const descriptions = selectedData.map(d => d.description);
 
             const noDataDiv = document.getElementById('noData');
-            const downloadBtn = document.getElementById('downloadBtn');
 
             if (selectedProducts.length === 0) {
                 noDataDiv.style.display = 'flex';
-                downloadBtn.disabled = true;
                 if (chart) {
                     chart.destroy();
                     chart = null;
@@ -919,7 +917,6 @@
             }
 
             noDataDiv.style.display = 'none';
-            downloadBtn.disabled = false;
 
             const ctx = document.getElementById('energyChart').getContext('2d');
 
