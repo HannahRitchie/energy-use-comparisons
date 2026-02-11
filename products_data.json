@@ -36,15 +36,15 @@
   },
   {
     "name": "Watching TV (medium efficient)",
-    "wattage": 50.0,
-    "fixed_wh": 50.0,
+    "wattage": 60.0,
+    "fixed_wh": 60.0,
     "input_type": "hours",
     "default_value": 1.0
   },
   {
     "name": "Watching TV (large modern)",
-    "wattage": 80.0,
-    "fixed_wh": 80.0,
+    "wattage": 90.0,
+    "fixed_wh": 90.0,
     "input_type": "hours",
     "default_value": 1.0
   },
@@ -56,16 +56,23 @@
     "default_value": 1.0
   },
   {
-    "name": "Older PC",
+    "name": "Laptop or efficient desktop",
     "wattage": 50.0,
     "fixed_wh": 50.0,
     "input_type": "hours",
     "default_value": 1.0
   },
   {
-    "name": "Gaming consoles (Xbox)",
+    "name": "Gaming console (Xbox Series S)",
     "wattage": 70.0,
     "fixed_wh": 70.0,
+    "input_type": "hours",
+    "default_value": 1.0
+  },
+  {
+    "name": "Gaming console (Xbox Series X)",
+    "wattage": 150.0,
+    "fixed_wh": 150.0,
     "input_type": "hours",
     "default_value": 1.0
   },
@@ -92,8 +99,8 @@
   },
   {
     "name": "Reading on a Kindle",
-    "wattage": 0.2,
-    "fixed_wh": 0.2,
+    "wattage": 1.0,
+    "fixed_wh": 1.0,
     "input_type": "hours",
     "default_value": 1.0
   },
@@ -113,8 +120,8 @@
   },
   {
     "name": "Microwave",
-    "wattage": 1200.0,
-    "fixed_wh": 100.0,
+    "wattage": 1000.0,
+    "fixed_wh": 83.333,
     "input_type": "hours",
     "default_value": 0.08333333333333333
   },
@@ -189,9 +196,16 @@
     "default_value": 1
   },
   {
-    "name": "Tumble dryer",
+    "name": "Tumble dryer (vented or condenser)",
     "wattage": null,
     "fixed_wh": 4000.0,
+    "input_type": "cycles",
+    "default_value": 1
+  },
+  {
+    "name": "Tumble dryer (heat pump)",
+    "wattage": null,
+    "fixed_wh": 2000.0,
     "input_type": "cycles",
     "default_value": 1
   },
@@ -227,6 +241,13 @@
     "name": "Electric shower",
     "wattage": 10000.0,
     "fixed_wh": 1600.0,
+    "input_type": "hours",
+    "default_value": 0.16
+  },
+  {
+    "name": "Gas-powered shower",
+    "wattage": 22000.0,
+    "fixed_wh": 3520.0,
     "input_type": "hours",
     "default_value": 0.16
   },
@@ -313,5 +334,40 @@
     "fixed_wh": null,
     "input_type": "miles",
     "default_value": 10
+  },
+  {
+    "name": "Gardening",
+    "wattage": null,
+    "fixed_wh": null,
+    "input_type": "fixed",
+    "default_value": null
+  },
+  {
+    "name": "Electric lawnmower",
+    "wattage": 1500.0,
+    "fixed_wh": 1500.0,
+    "input_type": "hours",
+    "default_value": 1.0
+  },
+  {
+    "name": "Petrol lawnmower",
+    "wattage": 9000.0,
+    "fixed_wh": 9000.0,
+    "input_type": "hours",
+    "default_value": 1.0
+  },
+  {
+    "name": "Electric leaf-blower",
+    "wattage": 1200.0,
+    "fixed_wh": 1200.0,
+    "input_type": "hours",
+    "default_value": 1.0
+  },
+  {
+    "name": "Petrol leaf-blower",
+    "wattage": 7000.0,
+    "fixed_wh": 7000.0,
+    "input_type": "hours",
+    "default_value": 1.0
   }
 ]
