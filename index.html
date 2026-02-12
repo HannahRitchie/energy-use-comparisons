@@ -488,19 +488,22 @@
                 <p>Gas ovens consume natural gas for heating but also use electricity for ignition and controls (approximately 300-400 watts). When converting the thermal energy from gas combustion to electrical equivalents for comparison purposes, gas ovens typically use slightly more total energy than electric ovens due to combustion inefficiency. Thirty minutes = approximately 1,500 Wh equivalent.</p>
 
                 <h4>Air fryer</h4>
-                <p>Air fryers typically operate at 800-1,500 watts, with 800 watts being common for smaller models. Fifteen minutes of use = 200 Wh.</p>
+                <p>Small air fryers typically operate at 800W to 1500W. Larger models (especially with two trays) can be as much as 2500W. I've assumed 1500 watts in these calculations. Once an air fryer is on, it typically cycles and only runs at around 50% to 60% of capacity. Averaged over a cycle, 1000W is likely more realistic.</p>
+                <p>Ten minutes of use would consume 167 Wh (1000W * 0.17 hours = 167 Wh).</p>
 
                 <h4>Electric induction hob (one ring)</h4>
-                <p>Induction hobs are highly efficient, with single burners typically rated at 1,200-2,000 watts. A 1,600-watt burner used for 15 minutes = 400 Wh, though efficient cooking often requires less time. An average of 15 minutes at 800W = 200 Wh.</p>
+                <p>Induction hobs are efficient, and tend to have a power rating of 1,000W to 2,000W per ring. I've assumed 1,500 watts in these calculations. Like air fryers, they're often not operating at maximum power draw for the full cooking session. 50% is more typical. That means the average power usage is closer to 750W.</p>
+                <p>Most cooking activities take less time; typically 5 to 10 minutes, which reduces electricity consumption.</p>
 
                 <h4>Gas hob (one ring)</h4>
-                <p>Gas hobs convert natural gas to heat. When accounting for the electrical equivalent energy content of the gas consumed, a single burner for 15 minutes = approximately 375 Wh equivalent.</p>
+                <p>Gas hobs convert natural gas to heat. They tend to consume 2 to 2.5-times as much energy as induction hobs to achieve the same heat output. This is because they typically operate at around 40% efficiency, compared to 85% for an electric hob.</p>
+                <p>If an induction hob has an average rating of 750W over a cooking cycle, the useful heat delivered is 638W (750W * 85% efficiency). To get that useful heat from a gas hob with 40% efficiency would need 1595W (638W / 0.4). Here I've assumed an equivalent power input of 1600W.</p>
 
                 <h4>Small fridge</h4>
-                <p>Small refrigerators (under 10 cubic feet) typically consume 200-400 kWh per year, which equals approximately 274 Wh per day on average.</p>
+                <p>A small-to-medium refrigerator (around 130 litres) typically consumes around 100 kWh per year, which equals approximately 275 Wh per day on average.</p>
 
                 <h4>Fridge-freezer</h4>
-                <p>Standard refrigerator-freezer combinations (18-20 cubic feet) typically consume 300-800 kWh per year, averaging approximately 822 Wh per day.</p>
+                <p>Standard refrigerator-freezer combinations consume anywhere between 200 and 500 kWh per year. Some very efficient models can achieve less than 200 kWh. Here, I have assumed one consumes 300 kWh per year. That is approximately 822 Wh per day.</p>
                 <p><strong>Sources:</strong></p>
                 <ul>
                     <li>U.S. EIA: <a href="https://www.eia.gov/energyexplained/use-of-energy/electricity-use-in-homes.php" target="_blank">Electricity use in homes</a></li>
@@ -509,32 +512,36 @@
 
                 <h3>5. Washing and Drying</h3>
                 <h4>Vacuum cleaner (hoover)</h4>
-                <p>Vacuum cleaners typically use 500-1,500 watts, with 800 watts being a reasonable average. Ten minutes of use = 128 Wh (800W × 0.16 hours).</p>
+                <p>Vacuum cleaners typically use 500W to over 1,500W. Popular models in the UK use around 620W or 750W. Here, I have assumed a power rating of 750W. Ten minutes of usage would consume 120 Wh (750 * 0.16).</p>
 
                 <h4>Washing machine</h4>
-                <p>Modern washing machines typically use 400-1,400 Wh per cycle, depending on water temperature, load size, and cycle type. A warm water cycle with a medium load averages approximately 600 Wh.</p>
+                <p>Washing machine energy usage varies a lot depending on load size, cycle type and water temperature. An average load in an efficient, modern machine might use 600 Wh to 1,000 Wh per cycle. A large load could be use than 1,500 Wh. Here I have assumed 800 Wh, which is typical for a medium load.</p>
 
                 <h4>Tumble dryer</h4>
-                <p>Electric tumble dryers are among the highest energy consumers in the home, typically using 2,000-6,000 watts. A full drying cycle (approximately 60 minutes) at 4,000 watts = 4,000 Wh.</p>
+                <p>Electric tumble dryers are among the highest energy consumers in the home. Heat pump models are much more efficient than condenser or vented models. A condenser or vented model might consume between 4000 and 5000 Wh per cycle. A heat pump model, around half as much.</p>
+                <p>Here, I have assumed 4500 Wh for condenser or vented cycles, and 2000 Wh for a heat pump cycle. Actual energy consumption will depend on factors such as load size and user settings.</p>
 
                 <h4>Dishwasher</h4>
-                <p>Modern dishwashers typically use 1,200-2,400 Wh per cycle, with most energy going to heating water. An average cycle with heated drying = approximately 1,500 Wh.</p>
+                <p>Most energy in a dishwasher is used for heating the water. They typically use between 1,000 and 1,500 Wh per cycle. Very efficient models can use closer to 500 Wh per cycle. Operating on eco modes will also consume less than 1,000 Wh.</p>
+                <p>Here, I have assumed 1,250 Wh per cycle, which is fairly average for most users.</p>
 
                 <h4>Clothes iron</h4>
-                <p>Clothes irons typically operate at 1,000-2,000 watts, with 2,000 watts being common for steam irons. Ten minutes of use = 320 Wh (2000W × 0.16 hours).</p>
+                <p>Clothes irons typically have an energy rating between 1500W and 3000W. Steam irons are towards the higher end of the range. Here, I have assumed 2500W, which is fairly standard for a steam iron.</p>
+                <p>Using one for 10 minutes would consume 400 Wh of power (2500 * 0.16).</p>
 
                 <h3>6. Heating and Cooling</h3>
                 <h4>Hairdryer</h4>
-                <p>Hairdryers typically range from 1,000-2,000 watts, with 1,750 watts being common. Five minutes of use = 140 Wh (1750W × 0.08 hours).</p>
+                <p>Hairdryers typically range from 1,000 to 2,000 watts. I have assumed a power rating of 1,750W. Five minutes of use would consume 140 Wh (1750W * 0.08).</p>
 
                 <h4>Electric shower</h4>
-                <p>Electric showers are high-power appliances, typically rated at 7,500-10,500 watts. A 10-minute shower at 10,000 watts = 1,600 Wh (10000W × 0.16 hours).</p>
+                <p>Electric showers are high-power appliances, rated between 7,500W to 11,500W. Specific models of 7.2 kW, 7.5 kW, 8.5 kW, 9.5 kW, 10.5 kW, and 11.5 kW are typical.</p>
+                <p>I have assumed a 9,500W model here. A 10-minute shower at 9,500 watts would consume 1,520 Wh (9500W * 0.16 hours).</p>
 
                 <h4>Gas-powered shower</h4>
-                <p>Gas-powered showers heat water using natural gas. When accounting for the electrical equivalent energy content, a 10-minute gas shower consumes approximately 3,520 Wh equivalent.</p>
+                <p>If we take the gas equivalent of an electric shower (rated at 9500W) and assume a boiler efficiency of 90%, we get around 10,500W in energy input equivalents. A 10-minute shower would consume 1,690 Wh (10,500 * 0.16).</p>
 
                 <h4>Electric fan</h4>
-                <p>Standard oscillating or desk fans typically use 30-75 watts, with 50 watts being a reasonable average.</p>
+                <p>Standard fans typically use 30-75 watts, with 50 watts being a reasonable average.</p>
 
                 <h4>Small desk heater</h4>
                 <p>Small portable electric heaters typically range from 400-1,000 watts. A 400-watt heater = 400 Wh per hour.</p>
@@ -558,23 +565,19 @@
 
                 <h3>7. Driving</h3>
                 <h4>Using an e-bike</h4>
-                <p>Electric bicycles typically consume between 7-33 watt-hours per mile depending on terrain, speed, and assist level. An average value for moderate use is approximately 25 Wh per mile.</p>
-                <p><strong>Sources:</strong></p>
-                <ul>
-                    <li>Electric Bike Forums: <a href="https://forums.electricbikereview.com/threads/wattage-per-mile-or-kilometre.31480/" target="_blank">Wattage per mile discussion</a></li>
-                    <li>Cycle Volta: <a href="https://www.cyclevolta.com/understanding-e-bike-power-range-and-energy/" target="_blank">Understanding E-Bike Power, Range, and Energy</a></li>
-                </ul>
+                <p>Electric bicycles typically consume between 10 to 30 watt-hours per mile depending on speed, the cycling conditions, and how high the level of electric assist is. I've assumed a value of 25 Wh per mile.</p>
 
-                <h4>Driving an e-scooter</h4>
-                <p>Electric scooters typically consume 15-150 watt-hours per mile depending on the model and conditions. Personal e-scooters average around 15-30 Wh per mile, with 26 Wh being a reasonable middle estimate.</p>
-                <p><strong>Sources:</strong></p>
-                <ul>
-                    <li>Levy Electric: <a href="https://www.levyelectric.com/resources/understanding-electric-scooter-energy-consumption" target="_blank">Understanding Electric Scooter Energy Consumption</a></li>
-                    <li>NREL studies: Approximately 0.15 kWh per mile for shared e-scooters</li>
-                </ul>
+                <h4>Using an e-scooter</h4>
+                <p>Electric scooters typically consume 15-30 watt-hours per mile depending on the model and conditions. Here, I've assumed a usage of 25 Wh per mile.</p>
 
-                <h4>Driving a petrol scooter</h4>
-                <p>Gasoline/petrol scooters consume approximately 70-100 MPG equivalent. When converting the energy content of gasoline to electrical equivalents, this represents approximately 300-500 Wh per mile, with 400 Wh being a reasonable average.</p>
+                <h4>Driving an electric motorbike</h4>
+                <p>Electric motorbikes typically consume 100 to 250 watt-hours per mile depending on the model, driver weight and conditions. Real-world tests of motorbike efficiency find efficiencies of around 100 Wh per mile for moderate urban driving. People report higher usage when driving at higher speeds or motorway driving.</p>
+                <p>Here I've assumed around 150 Wh per mile.</p>
+
+                <h4>Driving a petrol motorbike</h4>
+                <p>Petrol motorbikes can consume between 50 and 100 miles per gallon. Let's take an average of 75mpg. A gallon is around 4.5 litres, so 75mpg is equivalent to 0.06 litres per mile.</p>
+                <p>The energy content of petrol is around 32 MJ per litre (or 8.9 kWh per litre). That equates to 0.53 kWh per mile (8.9kWh per litre * 0.06 litres per mile). Driving one mile uses around 530 Wh per mile.</p>
+                <p>In terms of energy inputs, this means an electric motorbike is 3 to 4 times as efficient as a petrol one.</p>
 
                 <h4>Driving an electric car</h4>
                 <p>Electric vehicles average approximately 0.3 kWh (300 Wh) per mile, though this varies from 200-400 Wh per mile depending on vehicle efficiency, driving conditions, and speed.</p>

@@ -141,29 +141,29 @@
   },
   {
     "name": "Air fryer",
-    "wattage": 800.0,
-    "fixed_wh": 200.0,
+    "wattage": 1000.0,
+    "fixed_wh": 166.67,
     "input_type": "hours",
-    "default_value": 0.25
+    "default_value": 0.16666666666666666
   },
   {
     "name": "Electric induction hob (one ring)",
-    "wattage": 800.0,
-    "fixed_wh": 200.0,
+    "wattage": 750.0,
+    "fixed_wh": 125.0,
     "input_type": "hours",
-    "default_value": 0.25
+    "default_value": 0.16666666666666666
   },
   {
     "name": "Gas hob (one ring)",
-    "wattage": 1500.0,
-    "fixed_wh": 375.0,
+    "wattage": 1600.0,
+    "fixed_wh": 266.67,
     "input_type": "hours",
-    "default_value": 0.25
+    "default_value": 0.16666666666666666
   },
   {
     "name": "Fridge (small)",
     "wattage": null,
-    "fixed_wh": 273.972602739726,
+    "fixed_wh": 275.0,
     "input_type": "fixed",
     "default_value": null
   },
@@ -183,22 +183,22 @@
   },
   {
     "name": "Vaccum cleaner (hoover)",
-    "wattage": 800.0,
-    "fixed_wh": 128.0,
+    "wattage": 750.0,
+    "fixed_wh": 120.0,
     "input_type": "hours",
     "default_value": 0.16
   },
   {
     "name": "Washing machine",
     "wattage": null,
-    "fixed_wh": 600.0,
+    "fixed_wh": 800.0,
     "input_type": "cycles",
     "default_value": 1
   },
   {
     "name": "Tumble dryer (vented or condenser)",
     "wattage": null,
-    "fixed_wh": 4000.0,
+    "fixed_wh": 4500.0,
     "input_type": "cycles",
     "default_value": 1
   },
@@ -212,14 +212,14 @@
   {
     "name": "Dishwasher",
     "wattage": null,
-    "fixed_wh": 1500.0,
+    "fixed_wh": 1250.0,
     "input_type": "cycles",
     "default_value": 1
   },
   {
     "name": "Clothes iron",
-    "wattage": 2000.0,
-    "fixed_wh": 320.0,
+    "wattage": 2500.0,
+    "fixed_wh": 400.0,
     "input_type": "hours",
     "default_value": 0.16
   },
@@ -239,15 +239,15 @@
   },
   {
     "name": "Electric shower",
-    "wattage": 10000.0,
-    "fixed_wh": 1600.0,
+    "wattage": 9500.0,
+    "fixed_wh": 1520.0,
     "input_type": "hours",
     "default_value": 0.16
   },
   {
     "name": "Gas-powered shower",
-    "wattage": 22000.0,
-    "fixed_wh": 3520.0,
+    "wattage": 10555.56,
+    "fixed_wh": 1688.89,
     "input_type": "hours",
     "default_value": 0.16
   },
@@ -308,15 +308,22 @@
     "default_value": 10
   },
   {
-    "name": "Driving an e-scooter",
-    "wattage": 26.0,
+    "name": "Using an e-scooter",
+    "wattage": 25.0,
     "fixed_wh": null,
     "input_type": "miles",
     "default_value": 10
   },
   {
-    "name": "Driving a petrol scooter",
-    "wattage": 400.0,
+    "name": "Driving an electric motorbike",
+    "wattage": 150.0,
+    "fixed_wh": null,
+    "input_type": "miles",
+    "default_value": 10
+  },
+  {
+    "name": "Driving a petrol motorbike",
+    "wattage": 530.0,
     "fixed_wh": null,
     "input_type": "miles",
     "default_value": 10
