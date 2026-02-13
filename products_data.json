@@ -362,19 +362,5 @@
     "fixed_wh": 9000.0,
     "input_type": "hours",
     "default_value": 1.0
-  },
-  {
-    "name": "Electric leaf-blower",
-    "wattage": 1200.0,
-    "fixed_wh": 1200.0,
-    "input_type": "hours",
-    "default_value": 1.0
-  },
-  {
-    "name": "Petrol leaf-blower",
-    "wattage": 7000.0,
-    "fixed_wh": 7000.0,
-    "input_type": "hours",
-    "default_value": 1.0
   }
 ]
