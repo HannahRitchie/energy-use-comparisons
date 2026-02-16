@@ -26,6 +26,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
+            width: 100%;
         }
 
         .container + .container {
@@ -54,6 +55,7 @@
             grid-template-columns: 350px 1fr;
             gap: 20px;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .products-panel {
@@ -106,6 +108,9 @@
             color: #1f2937;
             flex: 1;
             font-size: 13px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.4;
         }
 
         .custom-inputs {
@@ -388,6 +393,111 @@
 
             .chart-panel {
                 padding-left: 0;
+            }
+        }
+
+        /* Mobile-specific improvements */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .product-header {
+                gap: 12px;
+                padding: 4px 0;
+            }
+
+            /* Larger checkbox for easier tapping on mobile */
+            .product-header input[type="checkbox"] {
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+            }
+
+            .product-name {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .product-item {
+                padding: 14px;
+                margin-bottom: 12px;
+            }
+
+            /* Larger touch targets for inputs */
+            .input-group input {
+                width: 60px;
+                padding: 8px;
+                font-size: 14px;
+                min-height: 44px;
+            }
+
+            .input-group label {
+                font-size: 13px;
+            }
+
+            /* Ensure search box is easy to use */
+            #searchInput {
+                font-size: 16px;
+                padding: 12px;
+                min-height: 44px;
+            }
+
+            .clear-btn {
+                padding: 12px;
+                font-size: 14px;
+                min-height: 44px;
+            }
+
+            .tab-button {
+                padding: 12px 16px;
+                font-size: 14px;
+                min-height: 44px;
+            }
+        }
+
+        /* Extra small mobile devices */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                border-radius: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+            }
+
+            .content {
+                padding: 12px;
+                gap: 15px;
+            }
+
+            .products-panel h2 {
+                font-size: 1.1em;
+            }
+
+            .product-item {
+                padding: 12px;
+            }
+
+            .input-row {
+                flex-wrap: wrap;
+                gap: 8px;
             }
         }
     </style>
