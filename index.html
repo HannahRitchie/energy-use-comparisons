@@ -637,7 +637,7 @@
                 return `
                     <div class="product-item" id="product-${index}">
                         <div class="product-header" onclick="toggleProduct(${index})">
-                            <input type="checkbox" id="check-${index}" onclick="event.stopPropagation(); toggleProduct(${index})">
+                            <input type="checkbox" id="check-${index}" onchange="handleCheckboxChange(${index})" onclick="event.stopPropagation()">
                             <span class="product-name">${product.name}</span>
                         </div>
                         <div class="custom-inputs">
@@ -747,6 +747,20 @@
                 default:
                     return '';
             }
+        }
+
+        function handleCheckboxChange(index) {
+            // Handle direct checkbox clicks - checkbox state already changed by browser
+            const checkbox = document.getElementById(`check-${index}`);
+            const productDiv = document.getElementById(`product-${index}`);
+
+            if (checkbox.checked) {
+                productDiv.classList.add('selected');
+            } else {
+                productDiv.classList.remove('selected');
+            }
+
+            updateChart();
         }
 
         function toggleProduct(index) {
