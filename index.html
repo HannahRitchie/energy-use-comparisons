@@ -953,6 +953,21 @@
             }
         }
 
+        const MAX_SELECTIONS = 15;
+
+        function getSelectedCount() {
+            let count = 0;
+            products.forEach((product, index) => {
+                if (!isCategory(product)) {
+                    const checkbox = document.getElementById(`check-${index}`);
+                    if (checkbox && checkbox.checked) {
+                        count++;
+                    }
+                }
+            });
+            return count;
+        }
+
         function handleCheckboxChange(index) {
             try {
                 // Handle direct checkbox clicks - checkbox state already changed by browser
@@ -961,6 +976,13 @@
 
                 if (!checkbox || !productDiv) {
                     console.error('Elements not found for index:', index);
+                    return;
+                }
+
+                // Check if trying to select more than limit
+                if (checkbox.checked && getSelectedCount() > MAX_SELECTIONS) {
+                    checkbox.checked = false;
+                    alert(`You can select a maximum of ${MAX_SELECTIONS} products to keep the chart readable.`);
                     return;
                 }
 
@@ -988,6 +1010,12 @@
 
                 if (!checkbox || !productDiv) {
                     console.error('Elements not found for index:', index);
+                    return;
+                }
+
+                // Check if trying to select more than limit
+                if (!checkbox.checked && getSelectedCount() >= MAX_SELECTIONS) {
+                    alert(`You can select a maximum of ${MAX_SELECTIONS} products to keep the chart readable.`);
                     return;
                 }
 
