@@ -400,6 +400,12 @@
         @media (max-width: 768px) {
             body {
                 padding: 10px;
+                overflow-x: hidden;
+            }
+
+            .container {
+                max-width: 100vw;
+                overflow-x: hidden;
             }
 
             .header h1 {
@@ -412,11 +418,25 @@
 
             .content {
                 padding: 15px;
+                display: block;
+                overflow-x: hidden;
+            }
+
+            .products-panel {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 20px;
+                border-right: none;
+                border-bottom: 2px solid #e5e7eb;
+                padding-bottom: 20px;
+                overflow-x: hidden;
             }
 
             .product-header {
                 gap: 12px;
                 padding: 4px 0;
+                width: 100%;
+                max-width: 100%;
             }
 
             /* Larger checkbox for easier tapping on mobile */
@@ -429,11 +449,18 @@
             .product-name {
                 font-size: 14px;
                 line-height: 1.5;
+                flex: 1;
+                min-width: 0;
+                max-width: 100%;
+                white-space: normal;
             }
 
             .product-item {
                 padding: 14px;
                 margin-bottom: 12px;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
             /* Larger touch targets for inputs */
@@ -453,12 +480,15 @@
                 font-size: 16px;
                 padding: 12px;
                 min-height: 44px;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .clear-btn {
                 padding: 12px;
                 font-size: 14px;
                 min-height: 44px;
+                width: 100%;
             }
 
             .tab-button {
@@ -468,8 +498,17 @@
             }
 
             /* Make chart much smaller on mobile */
+            .chart-panel {
+                padding-left: 0;
+                width: 100%;
+                overflow-x: hidden;
+            }
+
             .chart-container {
                 height: 300px;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
             }
 
             .chart-panel h2 {
@@ -479,16 +518,23 @@
             .chart-subtitle {
                 font-size: 0.9em;
             }
+
+            canvas {
+                max-width: 100% !important;
+                height: auto !important;
+            }
         }
 
         /* Extra small mobile devices */
         @media (max-width: 480px) {
             body {
                 padding: 5px;
+                overflow-x: hidden;
             }
 
             .container {
                 border-radius: 15px;
+                max-width: 100vw;
             }
 
             .header h1 {
@@ -497,11 +543,12 @@
 
             .content {
                 padding: 12px;
-                gap: 15px;
+                width: 100%;
             }
 
             .products-panel {
                 width: 100%;
+                max-width: 100%;
             }
 
             .products-panel h2 {
@@ -510,6 +557,12 @@
 
             .product-item {
                 padding: 12px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .product-name {
+                font-size: 13px;
             }
 
             .input-row {
@@ -520,6 +573,13 @@
             /* Even smaller chart on very small screens */
             .chart-container {
                 height: 250px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .chart-panel {
+                width: 100%;
+                max-width: 100%;
             }
 
             .chart-panel h2 {
@@ -1053,6 +1113,11 @@
                 chart.destroy();
             }
 
+            // Detect mobile for responsive padding
+            const isMobile = window.innerWidth <= 768;
+            const leftPadding = isMobile ? 140 : 20;
+            const rightPadding = isMobile ? 80 : 150;
+
             chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -1071,8 +1136,8 @@
                     maintainAspectRatio: false,
                     layout: {
                         padding: {
-                            left: 20,
-                            right: 150
+                            left: leftPadding,
+                            right: rightPadding
                         }
                     },
                     plugins: {
@@ -1111,7 +1176,7 @@
                             ticks: {
                                 autoSkip: false,
                                 font: {
-                                    size: 12
+                                    size: isMobile ? 11 : 12
                                 },
                                 align: 'end'
                             },
