@@ -466,6 +466,19 @@
                 font-size: 14px;
                 min-height: 44px;
             }
+
+            /* Make chart much smaller on mobile */
+            .chart-container {
+                height: 300px;
+            }
+
+            .chart-panel h2 {
+                font-size: 1.2em;
+            }
+
+            .chart-subtitle {
+                font-size: 0.9em;
+            }
         }
 
         /* Extra small mobile devices */
@@ -487,6 +500,10 @@
                 gap: 15px;
             }
 
+            .products-panel {
+                width: 100%;
+            }
+
             .products-panel h2 {
                 font-size: 1.1em;
             }
@@ -498,6 +515,15 @@
             .input-row {
                 flex-wrap: wrap;
                 gap: 8px;
+            }
+
+            /* Even smaller chart on very small screens */
+            .chart-container {
+                height: 250px;
+            }
+
+            .chart-panel h2 {
+                font-size: 1.1em;
             }
         }
     </style>
