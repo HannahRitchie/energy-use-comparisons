@@ -1144,8 +1144,8 @@
 
             // Detect mobile for responsive padding
             const isMobile = window.innerWidth <= 768;
-            const leftPadding = isMobile ? 5 : 20;
-            const rightPadding = isMobile ? 50 : 150;
+            const leftPadding = isMobile ? 10 : 20;
+            const rightPadding = isMobile ? 10 : 150;
 
             chart = new Chart(ctx, {
                 type: 'bar',
@@ -1208,18 +1208,10 @@
                             ticks: {
                                 autoSkip: false,
                                 font: {
-                                    size: isMobile ? 10 : 12
+                                    size: isMobile ? 9 : 12
                                 },
-                                padding: isMobile ? 5 : 10,
-                                crossAlign: 'far',
-                                mirror: false,
-                                callback: function(value, index, ticks) {
-                                    // Truncate long labels on mobile
-                                    if (isMobile && value.length > 18) {
-                                        return value.substring(0, 18) + '...';
-                                    }
-                                    return value;
-                                }
+                                padding: isMobile ? 3 : 10,
+                                mirror: false
                             },
                             grid: {
                                 display: false
