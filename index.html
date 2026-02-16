@@ -1115,8 +1115,8 @@
 
             // Detect mobile for responsive padding
             const isMobile = window.innerWidth <= 768;
-            const leftPadding = isMobile ? 140 : 20;
-            const rightPadding = isMobile ? 80 : 150;
+            const leftPadding = isMobile ? 5 : 20;
+            const rightPadding = isMobile ? 50 : 150;
 
             chart = new Chart(ctx, {
                 type: 'bar',
@@ -1160,12 +1160,15 @@
                                 display: true,
                                 text: 'Energy consumption (Watt-hours)',
                                 font: {
-                                    size: 14,
+                                    size: isMobile ? 11 : 14,
                                     weight: 'bold'
                                 }
                             },
                             ticks: {
-                                maxTicksLimit: 6
+                                maxTicksLimit: isMobile ? 4 : 6,
+                                font: {
+                                    size: isMobile ? 10 : 12
+                                }
                             },
                             grid: {
                                 color: 'rgba(0, 0, 0, 0.03)',
@@ -1176,9 +1179,18 @@
                             ticks: {
                                 autoSkip: false,
                                 font: {
-                                    size: isMobile ? 11 : 12
+                                    size: isMobile ? 10 : 12
                                 },
-                                align: 'end'
+                                padding: isMobile ? 5 : 10,
+                                crossAlign: 'far',
+                                mirror: false,
+                                callback: function(value, index, ticks) {
+                                    // Truncate long labels on mobile
+                                    if (isMobile && value.length > 18) {
+                                        return value.substring(0, 18) + '...';
+                                    }
+                                    return value;
+                                }
                             },
                             grid: {
                                 display: false
