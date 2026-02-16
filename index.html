@@ -648,39 +648,47 @@
             }).join('');
         }
 
+        let filterTimeout;
         function filterProducts() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            let lastCategoryIndex = -1;
-            let categoryHasVisibleItems = false;
+            // Debounce to prevent excessive filtering on every keystroke
+            clearTimeout(filterTimeout);
+            filterTimeout = setTimeout(() => {
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                let lastCategoryIndex = -1;
+                let categoryHasVisibleItems = false;
 
-            products.forEach((product, index) => {
-                const productDiv = document.getElementById(`product-${index}`);
+                products.forEach((product, index) => {
+                    const productDiv = document.getElementById(`product-${index}`);
+                    if (!productDiv) return; // Safety check
 
-                if (isCategory(product)) {
-                    // Hide previous category if it had no visible items
-                    if (lastCategoryIndex >= 0 && !categoryHasVisibleItems) {
-                        document.getElementById(`product-${lastCategoryIndex}`).style.display = 'none';
-                    }
+                    if (isCategory(product)) {
+                        // Hide previous category if it had no visible items
+                        if (lastCategoryIndex >= 0 && !categoryHasVisibleItems) {
+                            const lastCategoryDiv = document.getElementById(`product-${lastCategoryIndex}`);
+                            if (lastCategoryDiv) lastCategoryDiv.style.display = 'none';
+                        }
 
-                    // Start tracking new category
-                    lastCategoryIndex = index;
-                    categoryHasVisibleItems = false;
-                    productDiv.style.display = 'block'; // Will hide later if no items match
-                } else {
-                    // Regular product
-                    if (product.name.toLowerCase().includes(searchTerm)) {
-                        productDiv.style.display = 'block';
-                        categoryHasVisibleItems = true;
+                        // Start tracking new category
+                        lastCategoryIndex = index;
+                        categoryHasVisibleItems = false;
+                        productDiv.style.display = 'block'; // Will hide later if no items match
                     } else {
-                        productDiv.style.display = 'none';
+                        // Regular product
+                        if (product.name.toLowerCase().includes(searchTerm)) {
+                            productDiv.style.display = 'block';
+                            categoryHasVisibleItems = true;
+                        } else {
+                            productDiv.style.display = 'none';
+                        }
                     }
-                }
-            });
+                });
 
-            // Handle the last category
-            if (lastCategoryIndex >= 0 && !categoryHasVisibleItems) {
-                document.getElementById(`product-${lastCategoryIndex}`).style.display = 'none';
-            }
+                // Handle the last category
+                if (lastCategoryIndex >= 0 && !categoryHasVisibleItems) {
+                    const lastCategoryDiv = document.getElementById(`product-${lastCategoryIndex}`);
+                    if (lastCategoryDiv) lastCategoryDiv.style.display = 'none';
+                }
+            }, 150); // 150ms delay to reduce excessive calls
         }
 
         function renderInputs(product, index) {
