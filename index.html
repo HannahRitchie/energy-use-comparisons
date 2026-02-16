@@ -954,68 +954,97 @@
         }
 
         function handleCheckboxChange(index) {
-            // Handle direct checkbox clicks - checkbox state already changed by browser
-            const checkbox = document.getElementById(`check-${index}`);
-            const productDiv = document.getElementById(`product-${index}`);
+            try {
+                // Handle direct checkbox clicks - checkbox state already changed by browser
+                const checkbox = document.getElementById(`check-${index}`);
+                const productDiv = document.getElementById(`product-${index}`);
 
-            if (checkbox.checked) {
-                productDiv.classList.add('selected');
-            } else {
-                productDiv.classList.remove('selected');
+                if (!checkbox || !productDiv) {
+                    console.error('Elements not found for index:', index);
+                    return;
+                }
+
+                if (checkbox.checked) {
+                    productDiv.classList.add('selected');
+                } else {
+                    productDiv.classList.remove('selected');
+                }
+
+                updateChart();
+            } catch (error) {
+                console.error('Error in handleCheckboxChange:', error, 'Index:', index);
             }
-
-            updateChart();
         }
 
         function toggleProduct(index) {
-            // Skip if this is a category header
-            if (isCategory(products[index])) {
-                return;
+            try {
+                // Skip if this is a category header
+                if (isCategory(products[index])) {
+                    return;
+                }
+
+                const checkbox = document.getElementById(`check-${index}`);
+                const productDiv = document.getElementById(`product-${index}`);
+
+                if (!checkbox || !productDiv) {
+                    console.error('Elements not found for index:', index);
+                    return;
+                }
+
+                checkbox.checked = !checkbox.checked;
+
+                if (checkbox.checked) {
+                    productDiv.classList.add('selected');
+                } else {
+                    productDiv.classList.remove('selected');
+                }
+
+                updateChart();
+            } catch (error) {
+                console.error('Error in toggleProduct:', error, 'Index:', index);
             }
-
-            const checkbox = document.getElementById(`check-${index}`);
-            const productDiv = document.getElementById(`product-${index}`);
-
-            checkbox.checked = !checkbox.checked;
-
-            if (checkbox.checked) {
-                productDiv.classList.add('selected');
-            } else {
-                productDiv.classList.remove('selected');
-            }
-
-            updateChart();
         }
 
         function calculateEnergy(product, index) {
-            switch(product.input_type) {
-                case 'hours':
-                    const hours = parseFloat(document.getElementById(`input1-${index}`).value) || 0;
-                    const minutes = parseFloat(document.getElementById(`input2-${index}`).value) || 0;
-                    const totalHours = hours + minutes / 60;
-                    return product.wattage * totalHours;
+            try {
+                switch(product.input_type) {
+                    case 'hours':
+                        const input1 = document.getElementById(`input1-${index}`);
+                        const input2 = document.getElementById(`input2-${index}`);
+                        const hours = input1 ? (parseFloat(input1.value) || 0) : 0;
+                        const minutes = input2 ? (parseFloat(input2.value) || 0) : 0;
+                        const totalHours = hours + minutes / 60;
+                        return product.wattage * totalHours;
 
-                case 'cycles':
-                    const cycles = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
-                    return product.fixed_wh * cycles;
+                    case 'cycles':
+                        const cyclesInput = document.getElementById(`input1-${index}`);
+                        const cycles = cyclesInput ? (parseFloat(cyclesInput.value) || 1) : 1;
+                        return product.fixed_wh * cycles;
 
-                case 'boils':
-                    const boils = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
-                    return product.fixed_wh * boils;
+                    case 'boils':
+                        const boilsInput = document.getElementById(`input1-${index}`);
+                        const boils = boilsInput ? (parseFloat(boilsInput.value) || 1) : 1;
+                        return product.fixed_wh * boils;
 
-                case 'queries':
-                    const queries = parseFloat(document.getElementById(`input1-${index}`).value) || 1;
-                    return product.fixed_wh * queries;
+                    case 'queries':
+                        const queriesInput = document.getElementById(`input1-${index}`);
+                        const queries = queriesInput ? (parseFloat(queriesInput.value) || 1) : 1;
+                        return product.fixed_wh * queries;
 
-                case 'miles':
-                    const miles = parseFloat(document.getElementById(`input1-${index}`).value) || 10;
-                    return product.wattage * miles;
+                    case 'miles':
+                        const milesInput = document.getElementById(`input1-${index}`);
+                        const miles = milesInput ? (parseFloat(milesInput.value) || 10) : 10;
+                        return product.wattage * miles;
 
-                case 'fixed':
-                    return product.fixed_wh;
+                    case 'fixed':
+                        return product.fixed_wh;
 
-                default:
-                    return 0;
+                    default:
+                        return 0;
+                }
+            } catch (error) {
+                console.error('Error in calculateEnergy:', error, 'Product:', product.name, 'Index:', index);
+                return 0;
             }
         }
 
