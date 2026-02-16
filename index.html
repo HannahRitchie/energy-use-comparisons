@@ -1234,7 +1234,7 @@
 
                                 // Wh value at the end of the bar (right side)
                                 ctx.fillStyle = '#1f2937';
-                                ctx.font = 'bold 14px sans-serif';
+                                ctx.font = isMobile ? 'bold 11px sans-serif' : 'bold 14px sans-serif';
                                 ctx.textAlign = 'left';
                                 ctx.textBaseline = 'middle';
                                 const xPosEnd = bar.x + 10;
@@ -1243,7 +1243,7 @@
 
                                 // Usage description under the product name (left side)
                                 ctx.fillStyle = '#6b7280';
-                                ctx.font = 'italic 11px sans-serif';
+                                ctx.font = isMobile ? 'italic 8px sans-serif' : 'italic 11px sans-serif';
                                 ctx.textAlign = 'right';
                                 ctx.textBaseline = 'top';
                                 const xPosStart = xScale.left - 5;
