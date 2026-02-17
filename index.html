@@ -872,42 +872,77 @@
         }
 
         function updateURL() {
-            const selectedProducts = [];
+            const selectedConfigs = [];
             products.forEach((product, index) => {
                 if (!isCategory(product)) {
                     const checkbox = document.getElementById(`check-${index}`);
                     if (checkbox && checkbox.checked) {
-                        selectedProducts.push(encodeURIComponent(product.name));
+                        let config = encodeURIComponent(product.name);
+
+                        // Add input values based on input type
+                        if (product.input_type === 'hours') {
+                            const input1 = document.getElementById(`input1-${index}`);
+                            const input2 = document.getElementById(`input2-${index}`);
+                            const hours = input1 ? input1.value : 0;
+                            const minutes = input2 ? input2.value : 0;
+                            config += `|${hours}|${minutes}`;
+                        } else if (product.input_type && product.input_type !== 'fixed') {
+                            // For cycles, boils, queries, miles, etc.
+                            const input1 = document.getElementById(`input1-${index}`);
+                            const value = input1 ? input1.value : (product.default_value || 1);
+                            config += `|${value}`;
+                        }
+
+                        selectedConfigs.push(config);
                     }
                 }
             });
 
             const url = new URL(window.location);
-            if (selectedProducts.length > 0) {
-                url.searchParams.set('products', selectedProducts.join(','));
+            if (selectedConfigs.length > 0) {
+                url.searchParams.set('config', selectedConfigs.join(','));
             } else {
-                url.searchParams.delete('products');
+                url.searchParams.delete('config');
             }
             window.history.replaceState({}, '', url);
         }
 
         function loadFromURL() {
             const url = new URL(window.location);
-            const productsParam = url.searchParams.get('products');
+            const configParam = url.searchParams.get('config');
 
-            if (productsParam) {
-                const selectedNames = productsParam.split(',').map(name => decodeURIComponent(name));
+            if (configParam) {
+                const configs = configParam.split(',');
 
-                products.forEach((product, index) => {
-                    if (!isCategory(product) && selectedNames.includes(product.name)) {
-                        const checkbox = document.getElementById(`check-${index}`);
-                        const productDiv = document.getElementById(`product-${index}`);
+                configs.forEach(configStr => {
+                    const parts = configStr.split('|');
+                    const productName = decodeURIComponent(parts[0]);
 
-                        if (checkbox && productDiv) {
-                            checkbox.checked = true;
-                            productDiv.classList.add('selected');
+                    // Find the product by name
+                    products.forEach((product, index) => {
+                        if (!isCategory(product) && product.name === productName) {
+                            const checkbox = document.getElementById(`check-${index}`);
+                            const productDiv = document.getElementById(`product-${index}`);
+
+                            if (checkbox && productDiv) {
+                                checkbox.checked = true;
+                                productDiv.classList.add('selected');
+
+                                // Restore input values
+                                if (parts.length > 1) {
+                                    if (product.input_type === 'hours' && parts.length >= 3) {
+                                        const input1 = document.getElementById(`input1-${index}`);
+                                        const input2 = document.getElementById(`input2-${index}`);
+                                        if (input1) input1.value = parts[1];
+                                        if (input2) input2.value = parts[2];
+                                    } else if (product.input_type && product.input_type !== 'fixed') {
+                                        const input1 = document.getElementById(`input1-${index}`);
+                                        if (input1) input1.value = parts[1];
+                                    }
+                                }
+                            }
                         }
-                    }
+                    });
                 });
 
                 updateChart();
