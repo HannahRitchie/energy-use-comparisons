@@ -193,24 +193,36 @@
         }
 
         .share-btn {
-            background: #4A90E2;
-            color: white;
-            border: none;
-            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+            padding: 8px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background 0.3s ease;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
         }
 
         .share-btn:hover {
-            background: #2E5F8A;
+            background: white;
+            color: #374151;
+            border-color: #9ca3af;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .share-btn:disabled {
-            background: #9ca3af;
+            background: #f3f4f6;
+            color: #d1d5db;
             cursor: not-allowed;
+        }
+
+        .share-btn svg {
+            width: 20px;
+            height: 20px;
         }
 
         .share-menu {
@@ -681,7 +693,11 @@
                     <canvas id="energyChart"></canvas>
                     <div class="no-data" id="noData">Select products to compare their energy use</div>
                     <div class="share-container">
-                        <button class="share-btn" onclick="toggleShareMenu()" id="shareBtn">Share</button>
+                        <button class="share-btn" onclick="toggleShareMenu()" id="shareBtn" aria-label="Share">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                            </svg>
+                        </button>
                         <div class="share-menu" id="shareMenu">
                             <button class="share-menu-item" onclick="copyURL()">Copy URL</button>
                             <button class="share-menu-item" onclick="downloadChart()">Download PNG</button>
