@@ -349,15 +349,16 @@
         }
 
         .unit-selector {
-            margin-bottom: 15px;
-            padding: 12px;
+            margin: 8px 0 12px 0;
+            padding: 10px 12px;
             background: #f9fafb;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid #e5e7eb;
+            font-size: 13px;
         }
 
         .unit-selector label {
-            font-size: 14px;
+            font-size: 13px;
             color: #374151;
             font-weight: 500;
         }
@@ -717,17 +718,6 @@
                 <h2>Select Products</h2>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
-                </div>
-                <div class="unit-selector">
-                    <label>Distance unit:</label>
-                    <label class="radio-label">
-                        <input type="radio" name="distanceUnit" value="miles" checked onchange="updateChart(); updateURL()">
-                        Miles
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="distanceUnit" value="km" onchange="updateChart(); updateURL()">
-                        Kilometres
-                    </label>
                 </div>
                 <button class="clear-btn-subtle" onclick="clearAll()">Clear all selections</button>
                 <div id="productsList"></div>
@@ -1100,11 +1090,30 @@
             container.innerHTML = products.map((product, index) => {
                 // Check if this is a category header
                 if (isCategory(product)) {
-                    return `
+                    let categoryHTML = `
                         <div class="category-header" id="product-${index}">
                             ${product.name}
                         </div>
                     `;
+
+                    // Add unit selector after "Driving" category
+                    if (product.name === 'Driving') {
+                        categoryHTML += `
+                            <div class="unit-selector">
+                                <label>Distance unit:</label>
+                                <label class="radio-label">
+                                    <input type="radio" name="distanceUnit" value="miles" checked onchange="updateChart(); updateURL()">
+                                    Miles
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="distanceUnit" value="km" onchange="updateChart(); updateURL()">
+                                    Kilometres
+                                </label>
+                            </div>
+                        `;
+                    }
+
+                    return categoryHTML;
                 }
 
                 // Regular product item
