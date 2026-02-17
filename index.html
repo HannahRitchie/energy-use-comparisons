@@ -242,6 +242,25 @@
             background: #dc2626;
         }
 
+        .clear-btn-subtle {
+            background: transparent;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .clear-btn-subtle:hover {
+            background: #f3f4f6;
+            color: #374151;
+            border-color: #9ca3af;
+        }
+
         .search-box {
             margin-bottom: 20px;
         }
@@ -601,6 +620,7 @@
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
                 </div>
+                <button class="clear-btn-subtle" onclick="clearAll()">Clear all selections</button>
                 <div id="productsList"></div>
                 <button class="clear-btn" onclick="clearAll()">Clear All Selections</button>
             </div>
