@@ -877,7 +877,8 @@
                 if (!isCategory(product)) {
                     const checkbox = document.getElementById(`check-${index}`);
                     if (checkbox && checkbox.checked) {
-                        let config = encodeURIComponent(product.name);
+                        // Use product index instead of name for shorter URLs
+                        let config = `${index}`;
 
                         // Add input values based on input type
                         if (product.input_type === 'hours') {
@@ -885,12 +886,12 @@
                             const input2 = document.getElementById(`input2-${index}`);
                             const hours = input1 ? input1.value : 0;
                             const minutes = input2 ? input2.value : 0;
-                            config += `|${hours}|${minutes}`;
+                            config += `:${hours}:${minutes}`;
                         } else if (product.input_type && product.input_type !== 'fixed') {
                             // For cycles, boils, queries, miles, etc.
                             const input1 = document.getElementById(`input1-${index}`);
                             const value = input1 ? input1.value : (product.default_value || 1);
-                            config += `|${value}`;
+                            config += `:${value}`;
                         }
 
                         selectedConfigs.push(config);
@@ -900,27 +901,29 @@
 
             const url = new URL(window.location);
             if (selectedConfigs.length > 0) {
-                url.searchParams.set('config', selectedConfigs.join(','));
+                url.searchParams.set('c', selectedConfigs.join(','));
             } else {
-                url.searchParams.delete('config');
+                url.searchParams.delete('c');
             }
             window.history.replaceState({}, '', url);
         }
 
         function loadFromURL() {
             const url = new URL(window.location);
-            const configParam = url.searchParams.get('config');
+            const configParam = url.searchParams.get('c');
 
             if (configParam) {
                 const configs = configParam.split(',');
 
                 configs.forEach(configStr => {
-                    const parts = configStr.split('|');
-                    const productName = decodeURIComponent(parts[0]);
+                    const parts = configStr.split(':');
+                    const index = parseInt(parts[0]);
 
-                    // Find the product by name
-                    products.forEach((product, index) => {
-                        if (!isCategory(product) && product.name === productName) {
+                    // Get product by index
+                    if (index >= 0 && index < products.length) {
+                        const product = products[index];
+
+                        if (!isCategory(product)) {
                             const checkbox = document.getElementById(`check-${index}`);
                             const productDiv = document.getElementById(`product-${index}`);
 
@@ -942,7 +945,7 @@
                                 }
                             }
                         }
-                    });
+                    }
                 });
 
                 updateChart();
