@@ -348,6 +348,31 @@
             color: #9ca3af;
         }
 
+        .unit-selector {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .unit-selector label {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .unit-selector .radio-label {
+            margin-left: 10px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .unit-selector input[type="radio"] {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
         .category-header {
             font-size: 1.1em;
             font-weight: 700;
@@ -693,6 +718,17 @@
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
                 </div>
+                <div class="unit-selector">
+                    <label>Distance unit:</label>
+                    <label class="radio-label">
+                        <input type="radio" name="distanceUnit" value="miles" checked onchange="updateChart(); updateURL()">
+                        Miles
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="distanceUnit" value="km" onchange="updateChart(); updateURL()">
+                        Kilometres
+                    </label>
+                </div>
                 <button class="clear-btn-subtle" onclick="clearAll()">Clear all selections</button>
                 <div id="productsList"></div>
                 <button class="clear-btn" onclick="clearAll()">Clear All Selections</button>
@@ -984,12 +1020,28 @@
             } else {
                 url.searchParams.delete('c');
             }
+
+            // Save distance unit preference
+            const distanceUnit = getDistanceUnit();
+            if (distanceUnit === 'km') {
+                url.searchParams.set('unit', 'km');
+            } else {
+                url.searchParams.delete('unit');
+            }
+
             window.history.replaceState({}, '', url);
         }
 
         function loadFromURL() {
             const url = new URL(window.location);
             const configParam = url.searchParams.get('c');
+            const unitParam = url.searchParams.get('unit');
+
+            // Restore distance unit preference
+            if (unitParam === 'km') {
+                const kmRadio = document.querySelector('input[name="distanceUnit"][value="km"]');
+                if (kmRadio) kmRadio.checked = true;
+            }
 
             if (configParam) {
                 const configs = configParam.split(',');
@@ -1031,6 +1083,16 @@
 
         function isCategory(product) {
             return product.wattage === null && product.fixed_wh === null;
+        }
+
+        function getDistanceUnit() {
+            const radios = document.getElementsByName('distanceUnit');
+            for (const radio of radios) {
+                if (radio.checked) {
+                    return radio.value;
+                }
+            }
+            return 'miles'; // default
         }
 
         function renderProductsList() {
@@ -1152,11 +1214,13 @@
                     `;
 
                 case 'miles':
+                    const distanceUnit = getDistanceUnit();
+                    const unitLabel = distanceUnit === 'km' ? 'km' : 'miles';
                     return `
                         <div class="input-row">
                             <div class="input-group">
                                 <input type="number" id="input1-${index}" min="1" value="10" onchange="updateChart(); updateURL()">
-                                <label>miles</label>
+                                <label>${unitLabel}</label>
                             </div>
                         </div>
                     `;
@@ -1278,9 +1342,13 @@
                         return product.fixed_wh * queries;
 
                     case 'miles':
-                        const milesInput = document.getElementById(`input1-${index}`);
-                        const miles = milesInput ? (parseFloat(milesInput.value) || 10) : 10;
-                        return product.wattage * miles;
+                        const distanceInput = document.getElementById(`input1-${index}`);
+                        const distance = distanceInput ? (parseFloat(distanceInput.value) || 10) : 10;
+                        const distanceUnit = getDistanceUnit();
+                        // If km is selected, convert: 1 mile = 1.60934 km
+                        // So Wh per km = Wh per mile / 1.60934
+                        const whPerUnit = distanceUnit === 'km' ? product.wattage / 1.60934 : product.wattage;
+                        return whPerUnit * distance;
 
                     case 'fixed':
                         return product.fixed_wh;
@@ -1320,8 +1388,13 @@
                     return `${queries} ${queries !== 1 ? 'queries' : 'query'}`;
 
                 case 'miles':
-                    const miles = parseFloat(document.getElementById(`input1-${index}`).value) || 10;
-                    return `${miles} mile${miles !== 1 ? 's' : ''} driven`;
+                    const distance = parseFloat(document.getElementById(`input1-${index}`).value) || 10;
+                    const unit = getDistanceUnit();
+                    if (unit === 'km') {
+                        return `${distance} km driven`;
+                    } else {
+                        return `${distance} mile${distance !== 1 ? 's' : ''} driven`;
+                    }
 
                 case 'fixed':
                     return 'Per day';
