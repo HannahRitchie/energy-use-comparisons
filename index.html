@@ -165,10 +165,41 @@
             padding-left: 20px;
         }
 
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
         .chart-panel h2 {
             color: #2E5F8A;
-            margin-bottom: 5px;
+            margin-bottom: 0;
             font-size: 1.5em;
+        }
+
+        .copy-url-btn {
+            background: transparent;
+            color: #4A90E2;
+            border: 1px solid #4A90E2;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .copy-url-btn:hover {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .copy-url-btn.copied {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
         }
 
         .chart-subtitle {
@@ -629,7 +660,10 @@
             </div>
 
             <div class="chart-panel">
-                <h2>Energy consumption</h2>
+                <div class="chart-header">
+                    <h2>Energy consumption</h2>
+                    <button class="copy-url-btn" onclick="copyURL()">Copy URL</button>
+                </div>
                 <p class="chart-subtitle">Estimates measured in watt-hours (Wh).</p>
                 <div class="chart-container">
                     <canvas id="energyChart"></canvas>
@@ -1488,6 +1522,27 @@
 
             // Add active state to clicked button
             event.target.classList.add('active');
+        }
+
+        function copyURL() {
+            const url = window.location.href;
+            const button = event.target;
+
+            navigator.clipboard.writeText(url).then(() => {
+                // Show success state
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy URL:', err);
+                alert('Failed to copy URL. Please copy it manually from the address bar.');
+            });
         }
 
         loadProducts();
