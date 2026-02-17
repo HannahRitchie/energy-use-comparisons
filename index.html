@@ -1031,11 +1031,11 @@
                     return `
                         <div class="input-row">
                             <div class="input-group">
-                                <input type="number" id="input1-${index}" min="0" max="24" value="${defaultHours}" onchange="updateChart()">
+                                <input type="number" id="input1-${index}" min="0" max="24" value="${defaultHours}" onchange="updateChart(); updateURL()">
                                 <label>hours</label>
                             </div>
                             <div class="input-group">
-                                <input type="number" id="input2-${index}" min="0" max="59" value="${defaultMinutes}" onchange="updateChart()">
+                                <input type="number" id="input2-${index}" min="0" max="59" value="${defaultMinutes}" onchange="updateChart(); updateURL()">
                                 <label>minutes</label>
                             </div>
                         </div>
@@ -1045,7 +1045,7 @@
                     return `
                         <div class="input-row">
                             <div class="input-group">
-                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart()">
+                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart(); updateURL()">
                                 <label>cycles</label>
                             </div>
                         </div>
@@ -1055,7 +1055,7 @@
                     return `
                         <div class="input-row">
                             <div class="input-group">
-                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart()">
+                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart(); updateURL()">
                                 <label>full boils</label>
                             </div>
                         </div>
@@ -1065,7 +1065,7 @@
                     return `
                         <div class="input-row">
                             <div class="input-group">
-                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart()">
+                                <input type="number" id="input1-${index}" min="1" value="1" onchange="updateChart(); updateURL()">
                                 <label>queries</label>
                             </div>
                         </div>
@@ -1075,7 +1075,7 @@
                     return `
                         <div class="input-row">
                             <div class="input-group">
-                                <input type="number" id="input1-${index}" min="1" value="10" onchange="updateChart()">
+                                <input type="number" id="input1-${index}" min="1" value="10" onchange="updateChart(); updateURL()">
                                 <label>miles</label>
                             </div>
                         </div>
