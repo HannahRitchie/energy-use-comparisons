@@ -713,6 +713,7 @@
             <div class="tabs">
                 <button class="tab-button active" onclick="switchTab('description')">Description</button>
                 <button class="tab-button" onclick="switchTab('methodology')">Methodology</button>
+                <button class="tab-button" onclick="switchTab('changelog')">Change log</button>
             </div>
 
             <div id="description" class="tab-content active">
@@ -891,6 +892,23 @@
                 <h4>Petrol lawnmower</h4>
                 <p>Petrol lawnmowers are much less efficient than their electric equivalents, as much less input energy is converted into turning the blades.</p>
                 <p>A standard petrol lawnmower uses around 1 litre of petrol an hour (slightly less in more efficient models). Since the energy content of petrol is 8.9kWh per litre, they therefore use 8,000 to 10,000 Wh per hour. Here I have assumed 9,000 Wh.</p>
+            </div>
+
+            <div id="changelog" class="tab-content">
+                <h2>Change log</h2>
+                <p>I appreciate all of the feedback and comments from users. I continue to implement fixes and updates based on these suggestions.</p>
+                <p>Here is a log of changes and improvements.</p>
+
+                <h3>16/02/2026</h3>
+                <ul>
+                    <li>Fixed checkbox selection; this was not working on some browsers/devices</li>
+                    <li>Improved dimensions and labelling on mobile devices</li>
+                    <li>Limited selection to 12 products at a time (more than this becomes unfeasible for visualisation)</li>
+                    <li>Added "Clear all selections" button at the top</li>
+                    <li>On mobile, the chart now appears at the top (above the checklist) for easier access</li>
+                    <li>The URL of the chart now updates based on the user selection. This means a specific configuration can be shared with others. Copy the URL from the browser bar, or use the "Share" button in the bottom-right</li>
+                    <li>An image of the chart can now be downloaded. Use the "Share" button in the bottom-right</li>
+                </ul>
             </div>
         </div>
     </div>
