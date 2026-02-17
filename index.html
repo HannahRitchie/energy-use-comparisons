@@ -834,6 +834,50 @@
             const response = await fetch('products_data.json');
             products = await response.json();
             renderProductsList();
+            loadFromURL();
+        }
+
+        function updateURL() {
+            const selectedProducts = [];
+            products.forEach((product, index) => {
+                if (!isCategory(product)) {
+                    const checkbox = document.getElementById(`check-${index}`);
+                    if (checkbox && checkbox.checked) {
+                        selectedProducts.push(encodeURIComponent(product.name));
+                    }
+                }
+            });
+
+            const url = new URL(window.location);
+            if (selectedProducts.length > 0) {
+                url.searchParams.set('products', selectedProducts.join(','));
+            } else {
+                url.searchParams.delete('products');
+            }
+            window.history.replaceState({}, '', url);
+        }
+
+        function loadFromURL() {
+            const url = new URL(window.location);
+            const productsParam = url.searchParams.get('products');
+
+            if (productsParam) {
+                const selectedNames = productsParam.split(',').map(name => decodeURIComponent(name));
+
+                products.forEach((product, index) => {
+                    if (!isCategory(product) && selectedNames.includes(product.name)) {
+                        const checkbox = document.getElementById(`check-${index}`);
+                        const productDiv = document.getElementById(`product-${index}`);
+
+                        if (checkbox && productDiv) {
+                            checkbox.checked = true;
+                            productDiv.classList.add('selected');
+                        }
+                    }
+                });
+
+                updateChart();
+            }
         }
 
         function isCategory(product) {
@@ -1016,6 +1060,7 @@
                 }
 
                 updateChart();
+                updateURL();
             } catch (error) {
                 console.error('Error in handleCheckboxChange:', error, 'Index:', index);
             }
@@ -1360,6 +1405,7 @@
                 }
             });
             updateChart();
+            updateURL();
         }
 
         function downloadChart() {
