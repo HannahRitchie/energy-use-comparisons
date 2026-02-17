@@ -165,41 +165,10 @@
             padding-left: 20px;
         }
 
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
         .chart-panel h2 {
             color: #2E5F8A;
-            margin-bottom: 0;
+            margin-bottom: 5px;
             font-size: 1.5em;
-        }
-
-        .copy-url-btn {
-            background: transparent;
-            color: #4A90E2;
-            border: 1px solid #4A90E2;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .copy-url-btn:hover {
-            background: #4A90E2;
-            color: white;
-        }
-
-        .copy-url-btn.copied {
-            background: #10b981;
-            border-color: #10b981;
-            color: white;
         }
 
         .chart-subtitle {
@@ -216,10 +185,14 @@
             padding: 15px;
         }
 
-        .download-btn {
+        .share-container {
             position: absolute;
             bottom: 10px;
             right: 10px;
+            z-index: 10;
+        }
+
+        .share-btn {
             background: #4A90E2;
             color: white;
             border: none;
@@ -229,16 +202,58 @@
             font-size: 14px;
             font-weight: 600;
             transition: background 0.3s ease;
-            z-index: 10;
         }
 
-        .download-btn:hover {
+        .share-btn:hover {
             background: #2E5F8A;
         }
 
-        .download-btn:disabled {
+        .share-btn:disabled {
             background: #9ca3af;
             cursor: not-allowed;
+        }
+
+        .share-menu {
+            display: none;
+            position: absolute;
+            bottom: 45px;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 160px;
+        }
+
+        .share-menu.show {
+            display: block;
+        }
+
+        .share-menu-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            transition: background 0.2s ease;
+        }
+
+        .share-menu-item:hover {
+            background: #f3f4f6;
+        }
+
+        .share-menu-item:first-child {
+            border-radius: 6px 6px 0 0;
+        }
+
+        .share-menu-item:last-child {
+            border-radius: 0 0 6px 6px;
+        }
+
+        .share-menu-item.success {
+            color: #10b981;
         }
 
         .no-data {
@@ -660,14 +675,18 @@
             </div>
 
             <div class="chart-panel">
-                <div class="chart-header">
-                    <h2>Energy consumption</h2>
-                    <button class="copy-url-btn" onclick="copyURL()">Copy URL</button>
-                </div>
+                <h2>Energy consumption</h2>
                 <p class="chart-subtitle">Estimates measured in watt-hours (Wh).</p>
                 <div class="chart-container">
                     <canvas id="energyChart"></canvas>
                     <div class="no-data" id="noData">Select products to compare their energy use</div>
+                    <div class="share-container">
+                        <button class="share-btn" onclick="toggleShareMenu()" id="shareBtn">Share</button>
+                        <div class="share-menu" id="shareMenu">
+                            <button class="share-menu-item" onclick="copyURL()">Copy URL</button>
+                            <button class="share-menu-item" onclick="downloadChart()">Download PNG</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1543,6 +1562,9 @@
                 link.href = url;
                 link.click();
                 URL.revokeObjectURL(url);
+
+                // Close the share menu
+                document.getElementById('shareMenu')?.classList.remove('show');
             });
         }
 
@@ -1566,6 +1588,11 @@
             event.target.classList.add('active');
         }
 
+        function toggleShareMenu() {
+            const menu = document.getElementById('shareMenu');
+            menu.classList.toggle('show');
+        }
+
         function copyURL() {
             const url = window.location.href;
             const button = event.target;
@@ -1573,19 +1600,30 @@
             navigator.clipboard.writeText(url).then(() => {
                 // Show success state
                 const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                button.classList.add('copied');
+                button.textContent = '✓ Copied!';
+                button.classList.add('success');
 
-                // Reset after 2 seconds
+                // Close menu and reset after 1.5 seconds
                 setTimeout(() => {
                     button.textContent = originalText;
-                    button.classList.remove('copied');
-                }, 2000);
+                    button.classList.remove('success');
+                    document.getElementById('shareMenu').classList.remove('show');
+                }, 1500);
             }).catch(err => {
                 console.error('Failed to copy URL:', err);
                 alert('Failed to copy URL. Please copy it manually from the address bar.');
             });
         }
+
+        // Close share menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const shareContainer = document.querySelector('.share-container');
+            const shareMenu = document.getElementById('shareMenu');
+
+            if (shareContainer && !shareContainer.contains(event.target)) {
+                shareMenu?.classList.remove('show');
+            }
+        });
 
         loadProducts();
     </script>
