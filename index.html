@@ -1085,8 +1085,33 @@
             return 'miles'; // default
         }
 
+        function handleUnitChange() {
+            // Re-render the products list to update labels
+            renderProductsList();
+            // Update chart and URL
+            updateChart();
+            updateURL();
+        }
+
         function renderProductsList() {
             const container = document.getElementById('productsList');
+
+            // Save current checked states and input values before re-rendering
+            const savedStates = {};
+            products.forEach((product, index) => {
+                if (!isCategory(product)) {
+                    const checkbox = document.getElementById(`check-${index}`);
+                    const input1 = document.getElementById(`input1-${index}`);
+                    const input2 = document.getElementById(`input2-${index}`);
+                    savedStates[index] = {
+                        checked: checkbox ? checkbox.checked : false,
+                        selected: checkbox ? document.getElementById(`product-${index}`)?.classList.contains('selected') : false,
+                        input1Value: input1 ? input1.value : null,
+                        input2Value: input2 ? input2.value : null
+                    };
+                }
+            });
+
             container.innerHTML = products.map((product, index) => {
                 // Check if this is a category header
                 if (isCategory(product)) {
@@ -1098,15 +1123,16 @@
 
                     // Add unit selector after "Driving" category
                     if (product.name === 'Driving') {
+                        const currentUnit = getDistanceUnit();
                         categoryHTML += `
                             <div class="unit-selector">
                                 <label>Distance unit:</label>
                                 <label class="radio-label">
-                                    <input type="radio" name="distanceUnit" value="miles" checked onchange="updateChart(); updateURL()">
+                                    <input type="radio" name="distanceUnit" value="miles" ${currentUnit === 'miles' ? 'checked' : ''} onchange="handleUnitChange()">
                                     Miles
                                 </label>
                                 <label class="radio-label">
-                                    <input type="radio" name="distanceUnit" value="km" onchange="updateChart(); updateURL()">
+                                    <input type="radio" name="distanceUnit" value="km" ${currentUnit === 'km' ? 'checked' : ''} onchange="handleUnitChange()">
                                     Kilometres
                                 </label>
                             </div>
@@ -1118,9 +1144,9 @@
 
                 // Regular product item
                 return `
-                    <div class="product-item" id="product-${index}">
+                    <div class="product-item ${savedStates[index]?.selected ? 'selected' : ''}" id="product-${index}">
                         <div class="product-header" onclick="toggleProduct(${index})">
-                            <input type="checkbox" id="check-${index}" onchange="handleCheckboxChange(${index})" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="check-${index}" ${savedStates[index]?.checked ? 'checked' : ''} onchange="handleCheckboxChange(${index})" onclick="event.stopPropagation()">
                             <span class="product-name">${product.name}</span>
                         </div>
                         <div class="custom-inputs">
@@ -1129,6 +1155,20 @@
                     </div>
                 `;
             }).join('');
+
+            // Restore input values after re-rendering
+            products.forEach((product, index) => {
+                if (!isCategory(product) && savedStates[index]) {
+                    const input1 = document.getElementById(`input1-${index}`);
+                    const input2 = document.getElementById(`input2-${index}`);
+                    if (input1 && savedStates[index].input1Value !== null) {
+                        input1.value = savedStates[index].input1Value;
+                    }
+                    if (input2 && savedStates[index].input2Value !== null) {
+                        input2.value = savedStates[index].input2Value;
+                    }
+                }
+            });
         }
 
         let filterTimeout;
