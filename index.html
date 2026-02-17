@@ -871,14 +871,20 @@
             loadFromURL();
         }
 
+        function makeSlug(name) {
+            return name.toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
         function updateURL() {
             const selectedConfigs = [];
             products.forEach((product, index) => {
                 if (!isCategory(product)) {
                     const checkbox = document.getElementById(`check-${index}`);
                     if (checkbox && checkbox.checked) {
-                        // Use product index instead of name for shorter URLs
-                        let config = `${index}`;
+                        // Use URL-friendly slug of product name
+                        let config = makeSlug(product.name);
 
                         // Add input values based on input type
                         if (product.input_type === 'hours') {
@@ -917,13 +923,11 @@
 
                 configs.forEach(configStr => {
                     const parts = configStr.split(':');
-                    const index = parseInt(parts[0]);
+                    const slug = parts[0];
 
-                    // Get product by index
-                    if (index >= 0 && index < products.length) {
-                        const product = products[index];
-
-                        if (!isCategory(product)) {
+                    // Find product by matching slug
+                    products.forEach((product, index) => {
+                        if (!isCategory(product) && makeSlug(product.name) === slug) {
                             const checkbox = document.getElementById(`check-${index}`);
                             const productDiv = document.getElementById(`product-${index}`);
 
@@ -945,7 +949,7 @@
                                 }
                             }
                         }
-                    }
+                    });
                 });
 
                 updateChart();
