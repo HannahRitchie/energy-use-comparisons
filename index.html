@@ -1413,34 +1413,7 @@
                         },
                         y: {
                             ticks: {
-                                autoSkip: false,
-                                font: {
-                                    size: isMobile ? 9 : 12
-                                },
-                                padding: isMobile ? 3 : 5,
-                                mirror: false,
-                                callback: function(value, index, values) {
-                                    const label = this.getLabelForValue(value);
-                                    if (isMobile && label.length > 20) {
-                                        // Wrap text on mobile for labels longer than 20 chars
-                                        const words = label.split(' ');
-                                        const lines = [];
-                                        let currentLine = '';
-
-                                        words.forEach(word => {
-                                            const testLine = currentLine ? currentLine + ' ' + word : word;
-                                            if (testLine.length > 20 && currentLine) {
-                                                lines.push(currentLine);
-                                                currentLine = word;
-                                            } else {
-                                                currentLine = testLine;
-                                            }
-                                        });
-                                        if (currentLine) lines.push(currentLine);
-                                        return lines.slice(0, 3); // Max 3 lines
-                                    }
-                                    return label;
-                                }
+                                display: false
                             },
                             grid: {
                                 display: false
@@ -1460,6 +1433,7 @@
                             meta.data.forEach((bar, index) => {
                                 const data = dataset.data[index];
                                 const desc = descriptions[index];
+                                const productName = selectedProducts[index];
 
                                 // Wh value at the end of the bar (right side)
                                 ctx.fillStyle = '#1f2937';
@@ -1470,13 +1444,21 @@
                                 const yPos = bar.y;
                                 ctx.fillText(`${formatWh(data)} Wh`, xPosEnd, yPos);
 
-                                // Usage description under the product name (left side)
+                                // Product name (left side, right-aligned)
+                                ctx.fillStyle = '#374151';
+                                ctx.font = isMobile ? '9px sans-serif' : '12px sans-serif';
+                                ctx.textAlign = 'right';
+                                ctx.textBaseline = 'bottom';
+                                const xPosStart = xScale.left - 5;
+                                const yPosName = bar.y - 2;
+                                ctx.fillText(productName, xPosStart, yPosName);
+
+                                // Usage description under the product name (left side, right-aligned)
                                 ctx.fillStyle = '#6b7280';
                                 ctx.font = isMobile ? 'italic 8px sans-serif' : 'italic 11px sans-serif';
                                 ctx.textAlign = 'right';
                                 ctx.textBaseline = 'top';
-                                const xPosStart = xScale.left - 5;
-                                const yPosDesc = bar.y + 8;
+                                const yPosDesc = bar.y + 2;
                                 ctx.fillText(desc, xPosStart, yPosDesc);
                             });
                         });
