@@ -1196,7 +1196,7 @@
             // Detect mobile for responsive padding
             const isMobile = window.innerWidth <= 768;
             const leftPadding = isMobile ? 10 : 20;
-            const rightPadding = isMobile ? 10 : 150;
+            const rightPadding = isMobile ? 80 : 150;
 
             chart = new Chart(ctx, {
                 type: 'bar',
@@ -1262,7 +1262,29 @@
                                     size: isMobile ? 9 : 12
                                 },
                                 padding: isMobile ? 3 : 10,
-                                mirror: false
+                                mirror: false,
+                                callback: function(value, index, values) {
+                                    const label = this.getLabelForValue(value);
+                                    if (isMobile && label.length > 20) {
+                                        // Wrap text on mobile for labels longer than 20 chars
+                                        const words = label.split(' ');
+                                        const lines = [];
+                                        let currentLine = '';
+
+                                        words.forEach(word => {
+                                            const testLine = currentLine ? currentLine + ' ' + word : word;
+                                            if (testLine.length > 20 && currentLine) {
+                                                lines.push(currentLine);
+                                                currentLine = word;
+                                            } else {
+                                                currentLine = testLine;
+                                            }
+                                        });
+                                        if (currentLine) lines.push(currentLine);
+                                        return lines.slice(0, 3); // Max 3 lines
+                                    }
+                                    return label;
+                                }
                             },
                             grid: {
                                 display: false
