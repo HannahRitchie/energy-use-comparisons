@@ -4,377 +4,431 @@
     "wattage": null,
     "fixed_wh": null,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": null
   },
   {
     "name": "Lightbulb (incandescent)",
     "wattage": 60.0,
     "fixed_wh": 60.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Lightbulb (LED)",
     "wattage": 10.0,
     "fixed_wh": 10.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Digital technologies",
     "wattage": null,
     "fixed_wh": null,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": null
   },
   {
     "name": "Charging a mobile phone",
     "wattage": null,
     "fixed_wh": 20.0,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": "per day"
   },
   {
     "name": "Watching TV (medium efficient)",
     "wattage": 60.0,
     "fixed_wh": 60.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Watching TV (large modern)",
     "wattage": 90.0,
     "fixed_wh": 90.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "MacBook",
     "wattage": 70.0,
     "fixed_wh": 70.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Laptop or efficient desktop",
     "wattage": 50.0,
     "fixed_wh": 50.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Gaming console (Xbox Series S)",
     "wattage": 70.0,
     "fixed_wh": 70.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Gaming console (Xbox Series X)",
     "wattage": 150.0,
     "fixed_wh": 150.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Streaming Netflix",
     "wattage": 18.0,
     "fixed_wh": 18.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Streaming YouTube",
     "wattage": 20.0,
     "fixed_wh": 20.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "ChatGPT median query",
     "wattage": 0.3,
     "fixed_wh": 0.3,
     "input_type": "queries",
-    "default_value": 1
+    "default_value": 1,
+    "label": null
   },
   {
     "name": "Reading on a Kindle",
     "wattage": 1.0,
     "fixed_wh": 1.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Kitchen appliances",
     "wattage": null,
     "fixed_wh": null,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": null
   },
   {
     "name": "Boiling a kettle",
     "wattage": 2000.0,
     "fixed_wh": 100.0,
     "input_type": "boils",
-    "default_value": 1
+    "default_value": 1,
+    "label": null
   },
   {
     "name": "Microwave",
     "wattage": 1000.0,
-    "fixed_wh": 83.333,
+    "fixed_wh": 83.33333333333333,
     "input_type": "hours",
-    "default_value": 0.08333333333333333
+    "default_value": 0.08333333333333333,
+    "label": null
   },
   {
     "name": "Electric oven",
     "wattage": 2500.0,
-    "fixed_wh": 1250.0,
+    "fixed_wh": 687.5,
     "input_type": "hours",
-    "default_value": 0.5
+    "default_value": 0.5,
+    "label": null
   },
   {
     "name": "Gas oven",
     "wattage": 3000.0,
-    "fixed_wh": 1500.0,
+    "fixed_wh": 825.0000000000001,
     "input_type": "hours",
-    "default_value": 0.5
+    "default_value": 0.5,
+    "label": null
   },
   {
     "name": "Air fryer",
     "wattage": 1000.0,
-    "fixed_wh": 166.67,
+    "fixed_wh": 166.66666666666666,
     "input_type": "hours",
-    "default_value": 0.16666666666666666
+    "default_value": 0.16666666666666666,
+    "label": null
   },
   {
     "name": "Electric induction hob (one ring)",
     "wattage": 750.0,
     "fixed_wh": 125.0,
     "input_type": "hours",
-    "default_value": 0.16666666666666666
+    "default_value": 0.16666666666666666,
+    "label": null
   },
   {
     "name": "Gas hob (one ring)",
     "wattage": 1600.0,
-    "fixed_wh": 266.67,
+    "fixed_wh": 266.66666666666663,
     "input_type": "hours",
-    "default_value": 0.16666666666666666
+    "default_value": 0.16666666666666666,
+    "label": null
   },
   {
     "name": "Fridge (small)",
     "wattage": null,
     "fixed_wh": 275.0,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": "per day"
   },
   {
     "name": "Fridge-freezer",
     "wattage": null,
     "fixed_wh": 821.917808219178,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": "per day"
   },
   {
     "name": "Washing and drying",
     "wattage": null,
     "fixed_wh": null,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": null
   },
   {
-    "name": "Vaccum cleaner (hoover)",
+    "name": "Vacuum cleaner (hoover)",
     "wattage": 750.0,
-    "fixed_wh": 120.0,
+    "fixed_wh": 125.0,
     "input_type": "hours",
-    "default_value": 0.16
+    "default_value": 0.16666666666666666,
+    "label": null
   },
   {
     "name": "Washing machine",
     "wattage": null,
     "fixed_wh": 800.0,
     "input_type": "cycles",
-    "default_value": 1
+    "default_value": 1,
+    "label": null
   },
   {
     "name": "Tumble dryer (vented or condenser)",
     "wattage": null,
     "fixed_wh": 4500.0,
     "input_type": "cycles",
-    "default_value": 1
+    "default_value": 1,
+    "label": null
   },
   {
     "name": "Tumble dryer (heat pump)",
     "wattage": null,
     "fixed_wh": 2000.0,
     "input_type": "cycles",
-    "default_value": 1
+    "default_value": 1,
+    "label": null
   },
   {
     "name": "Dishwasher",
     "wattage": null,
     "fixed_wh": 1250.0,
     "input_type": "cycles",
-    "default_value": 1
+    "default_value": 1,
+    "label": null
   },
   {
     "name": "Clothes iron",
     "wattage": 2500.0,
-    "fixed_wh": 400.0,
+    "fixed_wh": 416.66666666666663,
     "input_type": "hours",
-    "default_value": 0.16
+    "default_value": 0.16666666666666666,
+    "label": null
   },
   {
     "name": "Heating and cooling",
     "wattage": null,
     "fixed_wh": null,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": null
   },
   {
     "name": "Hairdryer",
     "wattage": 1750.0,
-    "fixed_wh": 140.0,
+    "fixed_wh": 145.83333333333331,
     "input_type": "hours",
-    "default_value": 0.08
+    "default_value": 0.08333333333333333,
+    "label": null
   },
   {
     "name": "Electric shower",
     "wattage": 9500.0,
-    "fixed_wh": 1520.0,
+    "fixed_wh": 1583.3333333333333,
     "input_type": "hours",
-    "default_value": 0.16
+    "default_value": 0.16666666666666666,
+    "label": null
   },
   {
     "name": "Gas-powered shower",
-    "wattage": 10555.56,
-    "fixed_wh": 1688.89,
+    "wattage": 10555.555555555555,
+    "fixed_wh": 1759.2592592592591,
     "input_type": "hours",
-    "default_value": 0.16
+    "default_value": 0.16666666666666666,
+    "label": null
   },
   {
     "name": "Electric fan",
     "wattage": 50.0,
     "fixed_wh": 50.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Small desk heater",
     "wattage": 750.0,
     "fixed_wh": 750.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
-    "name": "Large space heater",
+    "name": "Space heater",
     "wattage": 1500.0,
     "fixed_wh": 1500.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Electric heat pump (Single room)",
     "wattage": 800.0,
     "fixed_wh": 800.0,
     "input_type": "hours",
-    "default_value": 1.0
-  },
-  {
-    "name": "Gas heating (Single room)",
-    "wattage": 2700.0,
-    "fixed_wh": 2700.0,
-    "input_type": "hours",
-    "default_value": 1.0
-  },
-  {
-    "name": "Air conditioning (Single room)",
-    "wattage": 1000.0,
-    "fixed_wh": 1000.0,
-    "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Electric heat pump (3-bed house)",
     "wattage": 2250.0,
     "fixed_wh": 2250.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
+  },
+  {
+    "name": "Gas heating (Single room)",
+    "wattage": 2700.0,
+    "fixed_wh": 2700.0,
+    "input_type": "hours",
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Gas heating (3-bed house)",
     "wattage": 7500.0,
     "fixed_wh": 7500.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
+  },
+  {
+    "name": "Air conditioning (Single room)",
+    "wattage": 1000.0,
+    "fixed_wh": 1000.0,
+    "input_type": "hours",
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Driving",
     "wattage": null,
     "fixed_wh": null,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": null
   },
   {
     "name": "Using an e-bike",
     "wattage": 25.0,
     "fixed_wh": null,
     "input_type": "miles",
-    "default_value": 10
+    "default_value": 10,
+    "label": null
   },
   {
     "name": "Using an e-scooter",
     "wattage": 25.0,
     "fixed_wh": null,
     "input_type": "miles",
-    "default_value": 10
+    "default_value": 10,
+    "label": null
   },
   {
     "name": "Driving an electric motorbike",
     "wattage": 150.0,
     "fixed_wh": null,
     "input_type": "miles",
-    "default_value": 10
+    "default_value": 10,
+    "label": null
   },
   {
     "name": "Driving a petrol motorbike",
     "wattage": 530.0,
     "fixed_wh": null,
     "input_type": "miles",
-    "default_value": 10
+    "default_value": 10,
+    "label": null
   },
   {
-    "name": "Driving an electric car",
+    "name": "Driving  an electric car",
     "wattage": 300.0,
     "fixed_wh": null,
     "input_type": "miles",
-    "default_value": 10
+    "default_value": 10,
+    "label": null
   },
   {
     "name": "Driving a petrol car",
     "wattage": 1000.0,
     "fixed_wh": null,
     "input_type": "miles",
-    "default_value": 10
+    "default_value": 10,
+    "label": null
   },
   {
     "name": "Gardening",
     "wattage": null,
     "fixed_wh": null,
     "input_type": "fixed",
-    "default_value": null
+    "default_value": null,
+    "label": null
   },
   {
     "name": "Electric lawnmower",
     "wattage": 1500.0,
     "fixed_wh": 1500.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   },
   {
     "name": "Petrol lawnmower",
     "wattage": 9000.0,
     "fixed_wh": 9000.0,
     "input_type": "hours",
-    "default_value": 1.0
+    "default_value": 1.0,
+    "label": null
   }
 ]

@@ -802,10 +802,12 @@
                 <p>Microwaves typically <a href="https://www.kitchenaid.com/pinch-of-help/major-appliances/microwave-wattage-guide.html" target="_blank">have a power rating</a> between 800 and 1,200 watts. If we assume 1000 watts, five minutes of use would consume 83 Wh (1000 * 0.08).</p>
 
                 <h4>Electric oven</h4>
-                <p>Electric ovens can <a href="https://www.energysage.com/electricity/house-watts/how-many-watts-does-an-electric-oven-and-stove-use/" target="_blank">have a power rating</a> ranging from 2,000 to 5,000 watts. A typical one is around 2500 watts. 30 minutes of use would consume 1,250 Wh.</p>
+                <p>Electric ovens can <a href="https://www.energysage.com/electricity/house-watts/how-many-watts-does-an-electric-oven-and-stove-use/" target="_blank">have a power rating</a> ranging from 2,000 to 5,000 watts. A typical one is around 2500 watts.</p>
+                <p>Once an oven is on and has reached the desired temperature, it typically cycles and runs at around 50% to 60% capacity. I've therefore calculated energy consumption as [2,500W × time × 0.55].</p>
 
                 <h4>Gas oven</h4>
-                <p>Gas ovens consume natural gas for heating but also use electricity for ignition and controls (approximately 300-400 watts). When converting the thermal energy from gas combustion to electrical equivalents for comparison purposes, gas ovens typically use slightly more total energy than electric ovens due to combustion inefficiency. Thirty minutes = approximately 1,500 Wh equivalent.</p>
+                <p>Gas ovens consume natural gas for heating but also use electricity for ignition and controls (approximately 300-400 watts). When converting the thermal energy from gas combustion to electrical equivalents for comparison purposes, gas ovens typically use slightly more total energy than electric ovens due to combustion inefficiency.</p>
+                <p>Similar to electric ovens, I have assumed that gas ovens cycle on and off once they've reached the desired temperature.</p>
 
                 <h4>Air fryer</h4>
                 <p>Small air fryers <a href="https://www.uswitch.com/gas-electricity/guides/how-much-does-it-cost-to-run-an-air-fryer/" target="_blank">typically operate</a> at 800W to 1500W. Larger models (especially with two trays) can be as much as 2500W. I've assumed 1500 watts in these calculations. Once an air fryer is on, it typically cycles and only runs at around 50% to 60% of capacity. Averaged over a cycle, 1000W is likely more realistic.</p>
@@ -920,6 +922,12 @@
                     <li>On mobile, the chart now appears at the top (above the checklist) for easier access</li>
                     <li>The URL of the chart now updates based on the user selection. This means a specific configuration can be shared with others. Copy the URL from the browser bar, or use the "Share" button in the bottom-right</li>
                     <li>An image of the chart can now be downloaded. Use the "Share" button in the bottom-right</li>
+                </ul>
+
+                <h3>17/02/2026</h3>
+                <ul>
+                    <li>Added clearer units for mobile phone charging and fridge-freezers (per day)</li>
+                    <li>Updated figures for "Electric oven" and "Gas oven". Previous figures assumed a maximum power draw when it's on. Ovens tend to cycle on and off once they're at the desired temperature. I have therefore applied a 0.55 factor (50-60%) to account for this</li>
                 </ul>
             </div>
         </div>
@@ -1154,7 +1162,8 @@
                     `;
 
                 case 'fixed':
-                    return `<div class="fixed-value">Fixed: ${product.fixed_wh.toFixed(1)} Wh</div>`;
+                    const label = product.label ? ` ${product.label}` : '';
+                    return `<div class="fixed-value">${product.fixed_wh.toFixed(1)} Wh${label}</div>`;
 
                 default:
                     return '';
