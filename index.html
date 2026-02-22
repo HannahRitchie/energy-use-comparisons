@@ -192,6 +192,23 @@
             padding: 15px;
         }
 
+        .footer-notes {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.85em;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .footer-notes p {
+            margin: 0 0 10px 0;
+        }
+
+        .footer-notes p:last-child {
+            margin-bottom: 0;
+        }
+
         .share-container {
             position: absolute;
             bottom: 10px;
@@ -742,6 +759,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="footerNotes" class="footer-notes"></div>
             </div>
         </div>
     </div>
@@ -795,20 +813,27 @@
                 <p>Larger modern TVs (55-60 inches with 4K capability) <a href="https://solartechonline.com/blog/tv-electricity-usage-guide" target="_blank">typically consume</a> 80-100 watts. I've gone with 90 watts as a reasonable average.</p>
 
                 <h4>MacBook laptop</h4>
-                <p>The power consumption of Apple MacBooks vary depending on the model and what applications users are running, but usage typically ranges from 30-100 watts. A MacBook Pro under moderate use <a href="https://shoukhintech.com/how-much-power-does-a-macbook-pro-use" target="_blank">averages around 70 watts</a>.</p>
+                <p>The power consumption of Apple MacBooks vary depending on the model and what applications users are running.</p>
+                <p>When doing everyday tasks such as writing emails, word documents, or browsing the internet, they consume around 5 to 15 watts. Streaming video is more like 15 to 20 watts. When doing intensive tasks such as editing photos or video, or gaming a MacBook Pro can reach 80 to 100 watts.</p>
+                <p>Here I have assumed an average of 20 watts.</p>
 
-                <h4>Laptop or efficient desktop</h4>
-                <p>Laptops (other than MacBooks) often use slightly less power during moderate usage. Desktop computers vary widely, but more efficient models consume <a href="https://www.energysage.com/electricity/house-watts/how-many-watts-does-a-computer-use/" target="_blank">approximately 50 watts</a>. Note that gaming computers can use far more, especially during peak usage (often several hundred watts).</p>
+                <h4>Desktop computer</h4>
+                <p>Desktop computers vary widely, but more efficient models consume approximately 50 watts. When doing light tasks, this can be a bit lower. Gaming computers can use far more, especially during peak usage (often several hundred watts).</p>
 
                 <h4>Gaming console (Xbox)</h4>
                 <p>The power consumption of game consoles can vary a lot, depending on the model. The Xbox Series S <a href="https://learn.microsoft.com/en-us/gaming/sustainability/lab-platform-baselines" target="_blank">typically consumes</a> around 70 watts during active gameplay. The Xbox Series X consumes around twice as much: 150 watts.</p>
                 <p>Game consoles use much less when streaming TV or film, or when in menu mode.</p>
 
                 <h4>Streaming Netflix (streaming only)</h4>
-                <p>Streaming one hour of HD video <a href="https://www.iea.org/commentaries/the-carbon-footprint-of-streaming-video-fact-checking-the-headlines" target="_blank">consumes approximately</a> 18 Wh. This is only for the data transmission; it does not include the electricity usage of the device (the laptop or TV itself). To get the total for that hour of viewing, combine it with the power usage of whatever device you're watching it on.</p>
+                <p>The marginal increase in energy consumption for one hour of streaming is around 0.2 Wh. This comprises of just 0.028 Wh from Netflix's servers themselves, and another 0.18 Wh from transmission and distribution.</p>
+                <p>To stream video, you need an internet connection, hence a bar for the electricity consumption for Home WiFi is also shown. Note that, for most people, this isn't actually the marginal increase in energy use for streaming. Most people have their internet running 24/7 regardless; the increase in energy use for streaming is very small by comparison. However, it is shown for completeness.</p>
+                <p>This does not include the electricity usage of the device (the laptop or TV itself). To get the total for that hour of viewing, combine it with the power usage of whatever device you're watching it on.</p>
 
                 <h4>Streaming YouTube (streaming only)</h4>
-                <p>Similar to Netflix, YouTube streaming consumes approximately 20 Wh per hour of HD content, slightly higher due to typical streaming patterns and ad delivery. Again, you need to add the power consumption of the device you're watching on, separately.</p>
+                <p>YouTube figures are likely similar to Netflix (see above), although they may be slightly higher due to typical streaming patterns and ad delivery. Again, you need to add the power consumption of the device you're watching on, separately.</p>
+
+                <h4>Home internet (WiFi)</h4>
+                <p>WiFi routers typically consume between 10 and 20 watts continuously. Here I've assumed 15 watts as a reasonable average.</p>
 
                 <h4>ChatGPT (median query)</h4>
                 <p>Recent research estimates that the median ChatGPT query using GPT-4o <a href="https://hannahritchie.substack.com/p/ai-footprint-august-2025" target="_blank">consumes approximately</a> 0.3 watt-hours of electricity.</p>
@@ -869,19 +894,28 @@
                 <p>Here, I have assumed 1,250 Wh per cycle, which is fairly average for most users.</p>
 
                 <h4>Clothes iron</h4>
-                <p>Clothes irons typically have <a href="https://www.argos.co.uk/browse/appliances/irons-and-steamers/irons" target="_blank">an energy rating</a> between 1500W and 3000W. Steam irons are towards the higher end of the range. Here, I have assumed 2500W, which is fairly standard for a steam iron.</p>
-                <p>Using one for 10 minutes would consume 400 Wh of power (2500 * 0.16).</p>
+                <p>Clothes irons typically have an energy rating between 1500W and 3000W. Steam irons are towards the higher end of the range. Here, I have assumed 2500W, which is fairly standard for a steam iron.</p>
+                <p>Using one for 10 minutes would consume 417 Wh of power.</p>
+
+                <h4>Dehumidifier</h4>
+                <p>Dehumidifiers can range from as small as a few 100 watts, up to several thousand for large whole-house units.</p>
+                <p>Here I've assumed a medium, portable one with an energy rating of 500W. And a large unit of 1000W.</p>
+                <p>In humid conditions, or if they're being used to dry clothes, they will be running at or close to maximum power draw for a long period of time. In fairly low-humidity conditions, they might cycle on and off after a few hours, meaning their energy use drops to 50% to 70% of the maximum.</p>
 
                 <h3>6. Heating and Cooling</h3>
                 <h4>Hairdryer</h4>
-                <p>Hairdryers <a href="https://www.argos.co.uk/browse/health-and-beauty/hair-care/hair-dryers" target="_blank">typically range</a> from 1,000 to 2,000 watts. I have assumed a power rating of 1,750W. Five minutes of use would consume 140 Wh (1750W * 0.08).</p>
+                <p>Hairdryers typically range from 1,000 to 2,000 watts. I have assumed a power rating of 1,750W. Five minutes of use would consume 146 Wh.</p>
 
                 <h4>Electric shower</h4>
-                <p>Electric showers are high-power appliances, rated between 7,500W to 11,500W. Specific models of 7.2 kW, 7.5 kW, 8.5 kW, 9.5 kW, 10.5 kW, and 11.5 kW <a href="https://www.bathroommountain.co.uk/inspiration-and-advice/electric-shower-wattage" target="_blank">are typical</a>.</p>
-                <p>I have assumed a 9,500W model here. A 10-minute shower at 9,500 watts would consume 1,520 Wh (9500W * 0.16 hours).</p>
+                <p>Electric showers are high-power appliances, rated between 7,500W to 11,500W. Specific models of 7.2 kW, 7.5 kW, 8.5 kW, 9.5 kW, 10.5 kW, and 11.5 kW are typical.</p>
+                <p>I have assumed a 9,500W model here. A 10-minute shower at 9,500 watts would consume 1,583 Wh.</p>
+
+                <h4>Electric shower (with a heat pump)</h4>
+                <p>An electric shower with hot water sourced from a heat pump will use less electricity.</p>
+                <p>If we assume a heat pump with a Coefficient of Performance (COP) of 3, producing the same heat output would use around 3,000 Wh per hour. Some very efficient models can achieve less than this; often closer to 2,000 Wh.</p>
 
                 <h4>Gas-powered shower</h4>
-                <p>If we take the gas equivalent of an electric shower (rated at 9500W) and assume a boiler efficiency of 90%, we get around 10,500W in energy input equivalents. A 10-minute shower would consume 1,690 Wh (10,500 * 0.16).</p>
+                <p>If we take the gas equivalent of an electric shower (rated at 9500W) and assume a boiler efficiency of 90%, we get around 10,500W in energy input equivalents. A 10-minute shower would consume 1,759 Wh.</p>
 
                 <h4>Electric fan</h4>
                 <p>Standard fans <a href="https://www.wayfair.co.uk/home-improvement/sb1/box-fans-portable-fans-c1854776-a3764~477320.html" target="_blank">typically use</a> 30-75 watts, with 50 watts being a reasonable average.</p>
@@ -903,7 +937,8 @@
 
                 <h3>7. Driving</h3>
                 <h4>Using an e-bike</h4>
-                <p>Electric bicycles typically <a href="https://www.cyclevolta.com/understanding-e-bike-power-range-and-energy/" target="_blank">consume between</a> 10 to 30 watt-hours per mile depending on speed, the cycling conditions, and how high the level of electric assist is. I've assumed a value of 25 Wh per mile.</p>
+                <p>Electric bicycles typically consume between 10 to 30 watt-hours per mile depending on speed, the cycling conditions, and how high the level of electric assist is. For light assist on flat terrain, it's around 8 to 12 Wh; for moderate, around 12 to 18 Wh; and for heavy assist on hilly terrain it can reach 30 Wh per mile.</p>
+                <p>I've assumed a value of 15 Wh per mile.</p>
 
                 <h4>Using an e-scooter</h4>
                 <p>Electric scooters <a href="https://gyroorboard.com/es/blogs/learn-with-gyroor/how-much-power-does-electric-scooter-use-a-complete-energy-guide" target="_blank">typically consume</a> 15-30 watt-hours per mile depending on the model and conditions. Here, I've assumed a usage of 25 Wh per mile.</p>
@@ -932,12 +967,44 @@
                 <h4>Petrol lawnmower</h4>
                 <p>Petrol lawnmowers are much less efficient than their electric equivalents, as much less input energy is converted into turning the blades.</p>
                 <p>A standard petrol lawnmower uses around 1 litre of petrol an hour (slightly less in more efficient models). Since the energy content of petrol is 8.9kWh per litre, they therefore use 8,000 to 10,000 Wh per hour. Here I have assumed 9,000 Wh.</p>
+
+                <h4>Electric strimmer</h4>
+                <p>Standard power strimmers range from around 250 watts to 700 watts. Smaller models will only be suitable for short grass.</p>
+                <p>Here I've assumed 500 watts.</p>
+
+                <h4>Gas strimmer</h4>
+                <p>Gas power strimmers are less efficient than electric models.</p>
+                <p>Data on this was hard to find, but a standard one probably consumes around 0.4 litres of petrol per hour. Since the energy content of petrol is 8.9kWh per litre, they therefore use around 3,500 Wh per hour in energy equivalents.</p>
+
+                <h4>Pressure washer</h4>
+                <p>Pressure washers typically have a power rating between 1,500 and 3,000 watts. For this tool, I've assumed 2,000 watts as standard.</p>
+                <p>Per hour, they will use 2,000 Wh when used continuously. Most people will take breaks and pauses during this time, so you should take that into account. If you break half the time, and use one for an hour, then the energy use is equivalent to half an hour (1,000 Wh).</p>
             </div>
 
             <div id="changelog" class="tab-content">
                 <h2>Change log</h2>
                 <p>I appreciate all of the feedback and comments from users. I continue to implement fixes and updates based on these suggestions.</p>
                 <p>Here is a log of changes and improvements.</p>
+
+                <h3>22/02/2026</h3>
+                <ul>
+                    <li>Added Dehumidifer, Power Strimmers, Power Washer, and Electric shower (with heat pump) as new selection options.</li>
+                    <li>Updated figures for Streaming Netflix and YouTube. The previous figure of 18 – 20 Wh per hour did not accurately reflect the marginal increase in electricity use for streaming. This figure is significantly lower.</li>
+                </ul>
+
+                <h3>19/02/2026</h3>
+                <ul>
+                    <li>Updated figures for "MacBook Pro". Previous figures assumed a power draw of 70 watts, which is how much is used during intensive tasks such as photo or video editing, or gaming. For everyday tasks such as email, browsing and watching video, it's closer to 20 watts.</li>
+                    <li>Updated figures for "Using an e-bike". Previous figures assumed a usage of 25 watt-hours per mile. This is more reflective of heavy assistance on fairly hilly terrain. Moderate assist is closer to 15 watt-hours (which is the figure I now use).</li>
+                </ul>
+
+                <h3>17/02/2026</h3>
+                <ul>
+                    <li>Added clearer units for mobile phone charging and fridge-freezers (per day)</li>
+                    <li>Updated figures for "Electric oven" and "Gas oven". Previous figures assumed a maximum power draw when it's on. Ovens tend to cycle on and off once they're at the desired temperature. I have therefore applied a 0.55 factor (50-60%) to account for this</li>
+                    <li>Added notes to emphasise that the appropriate time period for comparison is one day</li>
+                    <li>Added the option to switch between kilometres and miles for cycling and driving</li>
+                </ul>
 
                 <h3>16/02/2026</h3>
                 <ul>
@@ -948,14 +1015,6 @@
                     <li>On mobile, the chart now appears at the top (above the checklist) for easier access</li>
                     <li>The URL of the chart now updates based on the user selection. This means a specific configuration can be shared with others. Copy the URL from the browser bar, or use the "Share" button in the bottom-right</li>
                     <li>An image of the chart can now be downloaded. Use the "Share" button in the bottom-right</li>
-                </ul>
-
-                <h3>17/02/2026</h3>
-                <ul>
-                    <li>Added clearer units for mobile phone charging and fridge-freezers (per day)</li>
-                    <li>Updated figures for "Electric oven" and "Gas oven". Previous figures assumed a maximum power draw when it's on. Ovens tend to cycle on and off once they're at the desired temperature. I have therefore applied a 0.55 factor (50-60%) to account for this</li>
-                    <li>Added notes to emphasise that the appropriate time period for comparison is one day</li>
-                    <li>Added the option to switch between kilometres and miles for cycling and driving</li>
                 </ul>
             </div>
         </div>
@@ -1067,6 +1126,16 @@
                             }
                         }
                     });
+                });
+
+                // After loading all products, handle streaming dependencies
+                products.forEach((product, index) => {
+                    if (product.name === 'Streaming Netflix' || product.name === 'Streaming YouTube') {
+                        const checkbox = document.getElementById(`check-${index}`);
+                        if (checkbox && checkbox.checked) {
+                            handleStreamingDependencies(index, true);
+                        }
+                    }
                 });
 
                 updateChart();
@@ -1300,6 +1369,24 @@
             return count;
         }
 
+        function handleStreamingDependencies(index, isChecked) {
+            // Auto-select WiFi when streaming services are selected
+            const productName = products[index].name;
+            if ((productName === 'Streaming Netflix' || productName === 'Streaming YouTube') && isChecked) {
+                const wifiIndex = products.findIndex(p => p.name === 'Home internet (WiFi)');
+                if (wifiIndex !== -1) {
+                    const wifiCheckbox = document.getElementById(`check-${wifiIndex}`);
+                    const wifiDiv = document.getElementById(`product-${wifiIndex}`);
+                    if (wifiCheckbox && !wifiCheckbox.checked) {
+                        wifiCheckbox.checked = true;
+                        if (wifiDiv) {
+                            wifiDiv.classList.add('selected');
+                        }
+                    }
+                }
+            }
+        }
+
         function handleCheckboxChange(index) {
             try {
                 // Handle direct checkbox clicks - checkbox state already changed by browser
@@ -1323,6 +1410,9 @@
                 } else {
                     productDiv.classList.remove('selected');
                 }
+
+                // Handle streaming dependencies
+                handleStreamingDependencies(index, checkbox.checked);
 
                 updateChart();
                 updateURL();
@@ -1359,6 +1449,9 @@
                 } else {
                     productDiv.classList.remove('selected');
                 }
+
+                // Handle streaming dependencies
+                handleStreamingDependencies(index, checkbox.checked);
 
                 updateChart();
             } catch (error) {
@@ -1630,6 +1723,38 @@
                     }
                 }]
             });
+
+            // Update footer notes
+            updateFooterNotes();
+        }
+
+        function updateFooterNotes() {
+            const footerNotesDiv = document.getElementById('footerNotes');
+            if (!footerNotesDiv) return;
+
+            const notes = [];
+
+            products.forEach((product, index) => {
+                if (isCategory(product)) {
+                    return;
+                }
+
+                const checkbox = document.getElementById(`check-${index}`);
+                if (checkbox && checkbox.checked && product.footer_note) {
+                    notes.push(product.footer_note);
+                }
+            });
+
+            // Remove duplicates
+            const uniqueNotes = [...new Set(notes)];
+
+            if (uniqueNotes.length === 0) {
+                footerNotesDiv.innerHTML = '';
+                footerNotesDiv.style.display = 'none';
+            } else {
+                footerNotesDiv.innerHTML = uniqueNotes.map(note => `<p>${note}</p>`).join('');
+                footerNotesDiv.style.display = 'block';
+            }
         }
 
         function getColor(index) {
@@ -1672,6 +1797,9 @@
             // Get the chart canvas
             const chartCanvas = document.getElementById('energyChart');
 
+            // Use 2x scale for higher resolution
+            const scale = 2;
+
             // Create download canvas with proper dimensions
             const downloadCanvas = document.createElement('canvas');
             const ctx = downloadCanvas.getContext('2d');
@@ -1682,9 +1810,16 @@
             const chartHeight = chartCanvas.height;
             const chartWidth = chartCanvas.width;
 
-            // Set canvas dimensions (no scaling to avoid distortion)
-            downloadCanvas.width = chartWidth + padding;
-            downloadCanvas.height = chartHeight + titleHeight + padding;
+            // Set canvas dimensions with scaling for higher resolution
+            downloadCanvas.width = (chartWidth + padding) * scale;
+            downloadCanvas.height = (chartHeight + titleHeight + padding) * scale;
+
+            // Scale the context for crisp rendering
+            ctx.scale(scale, scale);
+
+            // Enable image smoothing for better quality
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
 
             // Fill white background
             ctx.fillStyle = 'white';
@@ -1700,10 +1835,10 @@
             ctx.font = '22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
             ctx.fillText('Estimates measured in watt-hours (Wh)', 40, 95);
 
-            // Draw the chart canvas directly without resizing (to avoid distortion)
+            // Draw the chart canvas
             ctx.drawImage(chartCanvas, 40, titleHeight);
 
-            // Download the canvas as PNG
+            // Download the canvas as PNG with high quality
             downloadCanvas.toBlob((blob) => {
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -1714,7 +1849,7 @@
 
                 // Close the share menu
                 document.getElementById('shareMenu')?.classList.remove('show');
-            });
+            }, 'image/png', 1.0);
         }
 
         function switchTab(tabName) {

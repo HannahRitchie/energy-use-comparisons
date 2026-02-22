@@ -13,6 +13,7 @@ wattage_idx = headers.index('Energy rating (W)')
 user_sel_idx = headers.index('User selection')
 hours_idx = headers.index('Hours per day')
 wh_idx = headers.index('Energy used (Wh)')
+footer_idx = headers.index('Footer note') if 'Footer note' in headers else None
 
 products = []
 
@@ -23,6 +24,7 @@ for row in ws.iter_rows(min_row=2, values_only=True):
     user_selection = row[user_sel_idx]
     hours_per_day = row[hours_idx]
     energy_wh = row[wh_idx]
+    footer_note = row[footer_idx] if footer_idx is not None else None
 
     product = {
         "name": product_name,
@@ -30,7 +32,8 @@ for row in ws.iter_rows(min_row=2, values_only=True):
         "fixed_wh": None if energy_wh is None else float(energy_wh),
         "input_type": None,
         "default_value": None,
-        "label": None
+        "label": None,
+        "footer_note": footer_note
     }
 
     # Determine input type based on 'User selection' column
