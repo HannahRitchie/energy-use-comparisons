@@ -6,7 +6,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Lightbulb (incandescent)",
@@ -15,7 +16,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Lightbulb (LED)",
@@ -24,7 +26,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Digital technologies",
@@ -33,7 +36,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Charging a mobile phone",
@@ -42,7 +46,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": "per day",
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Watching TV (medium efficient)",
@@ -51,7 +56,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Watching TV (large modern)",
@@ -60,7 +66,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "MacBook",
@@ -69,7 +76,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Desktop computer",
@@ -78,7 +86,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gaming console (Xbox Series S)",
@@ -87,7 +96,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gaming console (Xbox Series X)",
@@ -96,7 +106,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Streaming Netflix",
@@ -105,7 +116,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": "The marginal increase in electricity use from Netflix's servers is just 0.028W per hour of streaming. The remainder is for transmission and distribution (mostly in your own home). Here, the electricity usage of having a WiFi connection is also shown, however that does not increase proportionally to your streaming time (most people have their WiFi running 24/7 regardless)."
+    "footer_note": "The marginal increase in electricity use from Netflix's servers is just 0.028W per hour of streaming. The remainder is for transmission and distribution (mostly in your own home). Here, the electricity usage of having a WiFi connection is also shown, however that does not increase proportionally to your streaming time (most people have their WiFi running 24/7 regardless).",
+    "fuel": "Electricity"
   },
   {
     "name": "Streaming YouTube",
@@ -114,7 +126,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": "The marginal increase in electricity use from the provider's servers is just 0.028W per hour of streaming. The remainder is for transmission and distribution (mostly in your own home). Here, the electricity usage of having a WiFi connection is also shown, however that does not increase proportionally to your streaming time (most people have their WiFi running 24/7 regardless)."
+    "footer_note": "The marginal increase in electricity use from the provider's servers is just 0.028W per hour of streaming. The remainder is for transmission and distribution (mostly in your own home). Here, the electricity usage of having a WiFi connection is also shown, however that does not increase proportionally to your streaming time (most people have their WiFi running 24/7 regardless).",
+    "fuel": "Electricity"
   },
   {
     "name": "Home internet (WiFi)",
@@ -123,7 +136,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "ChatGPT median query",
@@ -132,7 +146,8 @@
     "input_type": "queries",
     "default_value": 1,
     "label": null,
-    "footer_note": "The energy use of images, videos, and longer LLM queries will be higher than this. This is for the median text query only."
+    "footer_note": "The energy use of images, videos, and longer LLM queries will be higher than this. This is for the median text query only.",
+    "fuel": "Electricity"
   },
   {
     "name": "Reading on a Kindle",
@@ -141,7 +156,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Kitchen appliances",
@@ -150,7 +166,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Boiling a kettle",
@@ -159,7 +176,8 @@
     "input_type": "boils",
     "default_value": 1,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Microwave",
@@ -168,7 +186,8 @@
     "input_type": "hours",
     "default_value": 0.08333333333333333,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric oven",
@@ -177,7 +196,8 @@
     "input_type": "hours",
     "default_value": 0.5,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gas oven",
@@ -186,7 +206,8 @@
     "input_type": "hours",
     "default_value": 0.5,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Air fryer",
@@ -195,7 +216,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric induction hob (one ring)",
@@ -204,7 +226,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gas hob (one ring)",
@@ -213,7 +236,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Fridge (small)",
@@ -222,7 +246,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": "per day",
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Fridge-freezer",
@@ -231,7 +256,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": "per day",
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Washing and drying",
@@ -240,7 +266,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Vacuum cleaner (hoover)",
@@ -249,7 +276,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Washing machine",
@@ -258,7 +286,8 @@
     "input_type": "cycles",
     "default_value": 1,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Tumble dryer (vented or condenser)",
@@ -267,7 +296,8 @@
     "input_type": "cycles",
     "default_value": 1,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Tumble dryer (heat pump)",
@@ -276,7 +306,8 @@
     "input_type": "cycles",
     "default_value": 1,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Dehumidifier (medium)",
@@ -285,7 +316,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Dehumidifier (large)",
@@ -294,7 +326,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Dishwasher",
@@ -303,7 +336,8 @@
     "input_type": "cycles",
     "default_value": 1,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Clothes iron",
@@ -312,7 +346,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Heating and cooling",
@@ -321,7 +356,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Hairdryer",
@@ -330,7 +366,8 @@
     "input_type": "hours",
     "default_value": 0.08333333333333333,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric shower",
@@ -339,7 +376,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric shower (heat pump)",
@@ -348,7 +386,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gas-powered shower",
@@ -357,7 +396,8 @@
     "input_type": "hours",
     "default_value": 0.16666666666666666,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric fan",
@@ -366,7 +406,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Small desk heater",
@@ -375,7 +416,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Space heater",
@@ -384,7 +426,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric heat pump (Single room)",
@@ -393,7 +436,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric heat pump (3-bed house)",
@@ -402,7 +446,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gas heating (Single room)",
@@ -411,7 +456,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gas heating (3-bed house)",
@@ -420,7 +466,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Air conditioning (Single room)",
@@ -429,7 +476,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Driving",
@@ -438,7 +486,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Using an e-bike",
@@ -447,7 +496,8 @@
     "input_type": "miles",
     "default_value": 10,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Using an e-scooter",
@@ -456,7 +506,8 @@
     "input_type": "miles",
     "default_value": 10,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Driving an electric motorbike",
@@ -465,7 +516,8 @@
     "input_type": "miles",
     "default_value": 10,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Driving a petrol motorbike",
@@ -474,7 +526,8 @@
     "input_type": "miles",
     "default_value": 10,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Driving  an electric car",
@@ -483,7 +536,8 @@
     "input_type": "miles",
     "default_value": 10,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Driving a petrol car",
@@ -492,7 +546,8 @@
     "input_type": "miles",
     "default_value": 10,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gardening",
@@ -501,7 +556,8 @@
     "input_type": "fixed",
     "default_value": null,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric lawnmower",
@@ -510,7 +566,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Petrol lawnmower",
@@ -519,7 +576,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Electric strimmer",
@@ -528,7 +586,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Gas strimmer",
@@ -537,7 +596,8 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   },
   {
     "name": "Pressure washer",
@@ -546,6 +606,7 @@
     "input_type": "hours",
     "default_value": 1.0,
     "label": null,
-    "footer_note": null
+    "footer_note": null,
+    "fuel": "Electricity"
   }
 ]
