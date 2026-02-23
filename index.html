@@ -181,90 +181,7 @@
         .chart-subtitle {
             color: #6b7280;
             font-size: 1em;
-            margin-bottom: 10px;
-        }
-
-        .settings-panel {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .view-section {
             margin-bottom: 15px;
-        }
-
-        .view-tabs {
-            display: flex;
-            gap: 0;
-            border-bottom: 2px solid #e5e7eb;
-        }
-
-        .view-tab {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 500;
-            color: #6b7280;
-            transition: all 0.2s ease;
-            position: relative;
-            bottom: -2px;
-        }
-
-        .view-tab:hover {
-            color: #374151;
-            background: #f9fafb;
-        }
-
-        .view-tab.active {
-            color: #2E5F8A;
-            border-bottom-color: #2E5F8A;
-            background: none;
-        }
-
-        .view-tab .tab-icon {
-            font-size: 1.2em;
-        }
-
-        .view-tab .tab-text {
-            font-weight: 600;
-        }
-
-        .country-selector {
-            margin-bottom: 0;
-            padding: 0;
-        }
-
-        .country-selector label {
-            display: block;
-            font-size: 0.85em;
-            color: #6b7280;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .country-selector select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            background: white;
-            font-size: 0.95em;
-            cursor: pointer;
-        }
-
-        .country-selector select:focus {
-            outline: none;
-            border-color: #2E5F8A;
-            box-shadow: 0 0 0 3px rgba(46, 95, 138, 0.1);
         }
 
         .chart-container {
@@ -815,34 +732,7 @@
 
         <div class="content">
             <div class="products-panel">
-                <div class="settings-panel">
-                    <div class="view-section">
-                        <div class="view-tabs">
-                            <button class="view-tab active" data-view="energy" onclick="switchViewMode('energy')">
-                                <span class="tab-icon">⚡</span>
-                                <span class="tab-text">Energy</span>
-                            </button>
-                            <button class="view-tab" data-view="cost" onclick="switchViewMode('cost')">
-                                <span class="tab-icon">💷</span>
-                                <span class="tab-text">Cost</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="country-selector" id="countrySelector" style="display: none;">
-                        <label for="countrySelect">Country:</label>
-                        <select id="countrySelect" onchange="handleCountryChange()">
-                            <option value="UK">United Kingdom</option>
-                            <option value="USA">United States</option>
-                            <option value="Germany">Germany</option>
-                            <option value="France">France</option>
-                            <option value="Spain">Spain</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Netherlands">Netherlands</option>
-                            <option value="Sweden">Sweden</option>
-                            <option value="Denmark">Denmark</option>
-                        </select>
-                    </div>
-                </div>
+                <h2>Select Products</h2>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
                 </div>
@@ -852,8 +742,8 @@
             </div>
 
             <div class="chart-panel">
-                <h2 id="chartTitle">Energy consumption</h2>
-                <p class="chart-subtitle" id="chartSubtitle">Estimates measured in watt-hours (Wh).</p>
+                <h2>Energy consumption</h2>
+                <p class="chart-subtitle">Estimates measured in watt-hours (Wh).</p>
                 <div class="chart-container">
                     <canvas id="energyChart"></canvas>
                     <div class="no-data" id="noData">Select products to compare energy use through the day</div>
@@ -1190,14 +1080,6 @@
                 url.searchParams.delete('unit');
             }
 
-            // Save view mode preference
-            const viewMode = getViewMode();
-            if (viewMode === 'cost') {
-                url.searchParams.set('view', 'cost');
-            } else {
-                url.searchParams.delete('view');
-            }
-
             window.history.replaceState({}, '', url);
         }
 
@@ -1205,17 +1087,11 @@
             const url = new URL(window.location);
             const configParam = url.searchParams.get('c');
             const unitParam = url.searchParams.get('unit');
-            const viewParam = url.searchParams.get('view');
 
             // Restore distance unit preference
             if (unitParam === 'km') {
                 const kmRadio = document.querySelector('input[name="distanceUnit"][value="km"]');
                 if (kmRadio) kmRadio.checked = true;
-            }
-
-            // Restore view mode preference
-            if (viewParam === 'cost') {
-                switchViewMode('cost');
             }
 
             if (configParam) {
@@ -1266,103 +1142,6 @@
             }
         }
 
-        // Energy prices by country (household/domestic prices per kWh)
-        // Sources: Eurostat (H1 2025), Ofgem (Q1 2026), EIA (2025-2026), GlobalPetrolPrices (2026)
-        // Electricity & Gas: Eurostat household energy price statistics, EIA for US
-        // Petrol: Converted from €/liter or $/gallon using 9.7 kWh/liter energy content
-        const countryPrices = {
-            'UK': {
-                electricity: 0.2769,  // Ofgem Q1 2026: 27.69p/kWh
-                gas: 0.0593,          // Ofgem Q1 2026: 5.93p/kWh
-                petrol: 0.136,        // Feb 2026: £1.32/L ÷ 9.7 kWh/L
-                currency: '£',
-                name: 'United Kingdom'
-            },
-            'Germany': {
-                electricity: 0.3835,  // Eurostat H1 2025
-                gas: 0.122,           // Eurostat H1 2025: €12.2/100kWh
-                petrol: 0.160,        // EU avg 2026: €1.555/L ÷ 9.7
-                currency: '€',
-                name: 'Germany'
-            },
-            'France': {
-                electricity: 0.266,   // Eurostat H1 2025: €26.6/100kWh
-                gas: 0.130,           // Eurostat H1 2025: €13/100kWh
-                petrol: 0.160,        // EU avg 2026
-                currency: '€',
-                name: 'France'
-            },
-            'Spain': {
-                electricity: 0.261,   // Eurostat H1 2025: €26.1/100kWh
-                gas: 0.086,           // Eurostat H1 2025: €8.6/100kWh
-                petrol: 0.160,        // EU avg 2026
-                currency: '€',
-                name: 'Spain'
-            },
-            'Italy': {
-                electricity: 0.3291,  // Eurostat H1 2025
-                gas: 0.124,           // Eurostat H1 2025: €12.4/100kWh
-                petrol: 0.160,        // EU avg 2026
-                currency: '€',
-                name: 'Italy'
-            },
-            'Netherlands': {
-                electricity: 0.230,   // GlobalPetrolPrices June 2025
-                gas: 0.1617,          // Eurostat H1 2025
-                petrol: 0.210,        // Feb 2026: €2.04/L ÷ 9.7
-                currency: '€',
-                name: 'Netherlands'
-            },
-            'Sweden': {
-                electricity: 0.0964,  // Eurostat H1 2025 (2nd lowest in EU)
-                gas: 0.2128,          // Eurostat H1 2025 (highest in EU)
-                petrol: 0.160,        // EU avg 2026
-                currency: '€',
-                name: 'Sweden'
-            },
-            'Denmark': {
-                electricity: 0.3485,  // Eurostat H1 2025 (3rd highest in EU)
-                gas: 0.1306,          // Eurostat H1 2025
-                petrol: 0.160,        // EU avg 2026
-                currency: '€',
-                name: 'Denmark'
-            },
-            'USA': {
-                electricity: 0.1805,  // EIA Feb 2026: 18.05¢/kWh
-                gas: 0.0507,          // EIA Nov 2025: $14.87/MCF ÷ 293.07 kWh/MCF
-                petrol: 0.081,        // 2026 forecast: $2.97/gal ÷ 3.785 L/gal ÷ 9.7 kWh/L
-                currency: '$',
-                name: 'United States'
-            }
-        };
-
-        function getSelectedCountry() {
-            const selector = document.getElementById('countrySelect');
-            return selector ? selector.value : 'UK';
-        }
-
-        function getCountryPrices(country = null) {
-            if (!country) {
-                country = getSelectedCountry();
-            }
-            return countryPrices[country] || countryPrices['UK'];
-        }
-
-        function handleCountryChange() {
-            // Update the chart title with new country name
-            const viewMode = getViewMode();
-            if (viewMode === 'cost') {
-                const titleElement = document.getElementById('chartTitle');
-                const country = getSelectedCountry();
-                const countryName = countryPrices[country].name;
-                titleElement.textContent = `Estimated energy cost in ${countryName}`;
-            }
-
-            updateChart();
-            updateFooterNotes();
-            updateURL();
-        }
-
         function isCategory(product) {
             return product.wattage === null && product.fixed_wh === null;
         }
@@ -1383,76 +1162,6 @@
             // Update chart and URL
             updateChart();
             updateURL();
-        }
-
-        function getViewMode() {
-            const activeTab = document.querySelector('.view-tab.active');
-            return activeTab ? activeTab.dataset.view : 'energy';
-        }
-
-        function switchViewMode(mode) {
-            // Update tab active states
-            document.querySelectorAll('.view-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`.view-tab[data-view="${mode}"]`)?.classList.add('active');
-
-            // Show/hide country selector
-            const countrySelector = document.getElementById('countrySelector');
-            if (countrySelector) {
-                countrySelector.style.display = mode === 'cost' ? 'block' : 'none';
-            }
-
-            // Update chart title and subtitle
-            const titleElement = document.getElementById('chartTitle');
-            const subtitleElement = document.getElementById('chartSubtitle');
-
-            if (mode === 'cost') {
-                const country = getSelectedCountry();
-                const countryName = countryPrices[country].name;
-                titleElement.textContent = `Estimated energy cost in ${countryName}`;
-                subtitleElement.textContent = '';
-            } else {
-                titleElement.textContent = 'Energy consumption';
-                subtitleElement.textContent = 'Estimates measured in watt-hours (Wh)';
-            }
-
-            // Update the chart
-            updateChart();
-            updateURL();
-        }
-
-        function convertWhToCost(wh, fuel = 'Electricity') {
-            const prices = getCountryPrices();
-
-            let pricePerKwh;
-            if (fuel === 'Gas') {
-                pricePerKwh = prices.gas;
-            } else if (fuel === 'Petrol') {
-                pricePerKwh = prices.petrol;
-            } else {
-                pricePerKwh = prices.electricity;
-            }
-
-            const pricePerWh = pricePerKwh / 1000;
-            return wh * pricePerWh;
-        }
-
-        function formatValue(wh, fuel = 'Electricity') {
-            const viewMode = getViewMode();
-            if (viewMode === 'cost') {
-                const prices = getCountryPrices();
-                const currency = prices.currency;
-                const cost = convertWhToCost(wh, fuel);
-                if (cost < 0.01) {
-                    // Display in cents for very small values
-                    return (cost * 100).toFixed(2) + 'c';
-                } else {
-                    return currency + cost.toFixed(2);
-                }
-            } else {
-                return formatWh(wh) + ' Wh';
-            }
         }
 
         function renderProductsList() {
@@ -1863,8 +1572,7 @@
                     selectedData.push({
                         name: product.name,
                         energy: energy,
-                        description: description,
-                        fuel: product.fuel || 'Electricity'
+                        description: description
                     });
                 }
             });
@@ -1872,17 +1580,10 @@
             // Sort by energy value (largest to smallest)
             selectedData.sort((a, b) => b.energy - a.energy);
 
-            // Extract sorted arrays and convert to appropriate values
-            const viewMode = getViewMode();
+            // Extract sorted arrays
             const selectedProducts = selectedData.map(d => d.name);
             const energyValues = selectedData.map(d => d.energy);
-            const fuelTypes = selectedData.map(d => d.fuel);
-            const displayValues = viewMode === 'cost'
-                ? energyValues.map((e, i) => convertWhToCost(e, fuelTypes[i]))
-                : energyValues;
-            const barColor = viewMode === 'cost'
-                ? 'rgba(118, 154, 200, 1)' // Muted blue color for cost mode
-                : 'rgba(192, 80, 77, 1)'; // Muted red color for energy mode
+            const barColor = 'rgba(192, 80, 77, 1)'; // Muted red color
             const descriptions = selectedData.map(d => d.description);
 
             const noDataDiv = document.getElementById('noData');
@@ -1909,15 +1610,13 @@
             const leftPadding = isMobile ? 5 : 20;
             const rightPadding = isMobile ? 80 : 150;
 
-            const datasetLabel = viewMode === 'cost' ? 'Cost (£)' : 'Energy Use (Wh)';
-
             chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: selectedProducts,
                     datasets: [{
-                        label: datasetLabel,
-                        data: displayValues,
+                        label: 'Energy Use (Wh)',
+                        data: energyValues,
                         backgroundColor: barColor,
                         borderColor: barColor,
                         borderWidth: 2
@@ -1941,10 +1640,7 @@
                             callbacks: {
                                 label: function(context) {
                                     const desc = descriptions[context.dataIndex];
-                                    const energy = energyValues[context.dataIndex];
-                                    const fuel = fuelTypes[context.dataIndex];
-                                    const displayValue = formatValue(energy, fuel);
-                                    return `${displayValue} (${desc})`;
+                                    return `${formatWh(context.parsed.x)} Wh (${desc})`;
                                 }
                             }
                         }
@@ -1954,7 +1650,7 @@
                             beginAtZero: true,
                             title: {
                                 display: !isMobile,
-                                text: viewMode === 'cost' ? 'Cost (£)' : 'Energy consumption (Watt-hours)',
+                                text: 'Energy consumption (Watt-hours)',
                                 font: {
                                     size: 14,
                                     weight: 'bold'
@@ -2005,16 +1701,14 @@
                                 const data = dataset.data[index];
                                 const desc = descriptions[index];
 
-                                // Value at the end of the bar (right side)
+                                // Wh value at the end of the bar (right side)
                                 ctx.fillStyle = '#1f2937';
                                 ctx.font = isMobile ? '10px sans-serif' : '12px sans-serif';
                                 ctx.textAlign = 'left';
                                 ctx.textBaseline = 'middle';
                                 const xPosEnd = bar.x + 10;
                                 const yPos = bar.y;
-                                const energyValue = energyValues[index];
-                                const fuel = fuelTypes[index];
-                                ctx.fillText(formatValue(energyValue, fuel), xPosEnd, yPos);
+                                ctx.fillText(`${formatWh(data)} Wh`, xPosEnd, yPos);
 
                                 // Usage description under the product name (left side, right-aligned)
                                 ctx.fillStyle = '#6b7280';
@@ -2039,15 +1733,6 @@
             if (!footerNotesDiv) return;
 
             const notes = [];
-            const viewMode = getViewMode();
-
-            // Add pricing information when in cost mode
-            if (viewMode === 'cost') {
-                const prices = getCountryPrices();
-                const currency = prices.currency;
-                const pricingNote = `Note: Assumes ${currency}${prices.electricity.toFixed(2)} for electricity, ${currency}${prices.gas.toFixed(2)} for gas, and ${currency}${prices.petrol.toFixed(2)} for petrol per kWh.`;
-                notes.push(pricingNote);
-            }
 
             products.forEach((product, index) => {
                 if (isCategory(product)) {
