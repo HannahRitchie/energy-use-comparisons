@@ -846,7 +846,7 @@
                     <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
                 </div>
                 <button class="clear-btn-subtle" onclick="clearAll()">Clear all selections</button>
-                <div id="productsList"></div>
+                <div id="productsList"><p style="color:#999; font-size:13px; padding:8px 0;">Loading products...</p></div>
                 <button class="clear-btn" onclick="clearAll()">Clear All Selections</button>
             </div>
 
@@ -1139,6 +1139,8 @@
             products = await response.json();
             renderProductsList();
             loadFromURL();
+            // Re-apply any search term typed before products finished loading
+            if (document.getElementById('searchInput').value) filterProducts();
         }
 
         function makeSlug(name) {
