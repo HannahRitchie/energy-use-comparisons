@@ -293,9 +293,10 @@
         }
 
         .share-container {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 6px;
             z-index: 10;
         }
 
@@ -335,7 +336,7 @@
         .share-menu {
             display: none;
             position: absolute;
-            bottom: 45px;
+            bottom: 42px;
             right: 0;
             background: white;
             border: 1px solid #d1d5db;
@@ -857,16 +858,16 @@
                 <div class="chart-container">
                     <canvas id="energyChart"></canvas>
                     <div class="no-data" id="noData">Select products to compare energy use through the day</div>
-                    <div class="share-container">
-                        <button class="share-btn" onclick="toggleShareMenu()" id="shareBtn" aria-label="Share">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                            </svg>
-                        </button>
-                        <div class="share-menu" id="shareMenu">
-                            <button class="share-menu-item" onclick="copyURL()">Copy URL</button>
-                            <button class="share-menu-item" onclick="downloadChart()">Download PNG</button>
-                        </div>
+                </div>
+                <div class="share-container">
+                    <button class="share-btn" onclick="toggleShareMenu()" id="shareBtn" aria-label="Share">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                    </button>
+                    <div class="share-menu" id="shareMenu">
+                        <button class="share-menu-item" onclick="copyURL()">Copy URL</button>
+                        <button class="share-menu-item" onclick="downloadChart()">Download PNG</button>
                     </div>
                 </div>
                 <div id="footerNotes" class="footer-notes"></div>
