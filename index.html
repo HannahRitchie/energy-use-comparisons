@@ -1899,6 +1899,11 @@
             const leftPadding = isMobile ? 5 : 20;
             const rightPadding = isMobile ? 80 : 150;
 
+            // Scale chart height to number of items so bars always look proportional
+            const maxChartHeight = isMobile ? 500 : 550;
+            const dynamicHeight = Math.min(maxChartHeight, Math.max(220, selectedProducts.length * 65));
+            document.querySelector('.chart-container').style.height = dynamicHeight + 'px';
+
             chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -1911,7 +1916,7 @@
                         borderRadius: 2,
                         barPercentage: 0.65,
                         categoryPercentage: 1.0,
-                        maxBarThickness: 50
+                        maxBarThickness: 60
                     }]
                 },
                 options: {
