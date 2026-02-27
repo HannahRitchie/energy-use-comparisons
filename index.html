@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Does that use a lot of energy?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -883,7 +884,7 @@
 
             <div id="description" class="tab-content active">
                 <h3>Disclaimer</h3>
-                <p>This is a prototype tool. It was designed to get a sense of the differences in energy consumption between different products. It's often difficult to understand whether activities matter a lot or very little for our overall energy consumption.</p>
+                <p>This tool was designed to get a sense of the differences in energy consumption between different products. It's often difficult to understand whether activities matter a lot or very little for our overall energy consumption.</p>
                 <p>These numbers represent typical products and usage (specifically for the UK, although it will often generalise elsewhere), and might not reflect your own personal circumstances. If you want to get precise measurements, you will need to use dedicated energy monitoring equipment.</p>
                 <p>Actual energy consumption will vary a lot depending on factors such as the age and efficiency of the product, how you're using it (for example, how warm your showers are, or how fast you drive), weather and climate conditions (which is particularly important for the energy usage of heaters and air conditioners).</p>
 
@@ -938,6 +939,7 @@
                 <p>The marginal increase in energy consumption for one hour of streaming is around 0.2 Wh. This comprises of just 0.028 Wh from Netflix's servers themselves, and another 0.18 Wh from transmission and distribution.</p>
                 <p>To stream video, you need an internet connection, hence a bar for the electricity consumption for Home WiFi is also shown. Note that, for most people, this isn't actually the marginal increase in energy use for streaming. Most people have their internet running 24/7 regardless; the increase in energy use for streaming is very small by comparison. However, it is shown for completeness.</p>
                 <p>This does not include the electricity usage of the device (the laptop or TV itself). To get the total for that hour of viewing, combine it with the power usage of whatever device you're watching it on.</p>
+                <p>h/t to Chris Preist (University of Bristol) for guidance on this.</p>
 
                 <h4>Streaming YouTube (streaming only)</h4>
                 <p>YouTube figures are likely similar to Netflix (see above), although they may be slightly higher due to typical streaming patterns and ad delivery. Again, you need to add the power consumption of the device you're watching on, separately.</p>
@@ -990,7 +992,7 @@
 
                 <h3>5. Washing and Drying</h3>
                 <h4>Vacuum cleaner (hoover)</h4>
-                <p>Vacuum cleaners typically use 500W to over 1,500W. Popular models in the UK use <a href="https://www.screwfix.com/p/numatic-nsr240-11-620w-9ltr-dry-vacuum-cleaner-230v/284PV" target="_blank">around 620W</a> or <a href="https://sharkclean.co.uk/product/shark-classic-upright-vacuum-nv602uk-zidNV602UK" target="_blank">750W</a>. Here, I have assumed a power rating of 750W. Ten minutes of usage would consume 120 Wh (750 * 0.16).</p>
+                <p>Vacuum cleaners typically use 500W to over 1,500W. Popular models in the UK use <a href="https://www.screwfix.com/p/numatic-nsr240-11-620w-9ltr-dry-vacuum-cleaner-230v/284PV" target="_blank">around 620W</a> or <a href="https://sharkclean.co.uk/product/shark-classic-upright-vacuum-nv602uk-zidNV602UK" target="_blank">750W</a>. Here, I have assumed a power rating of 750W. Ten minutes of usage would consume 125 Wh.</p>
 
                 <h4>Washing machine</h4>
                 <p>Washing machine energy usage varies a lot depending on load size, cycle type and water temperature. An average load in an efficient, modern machine <a href="https://ohmaticelectrical.co.uk/blog/how-much-electricity-does-a-washing-machine-use/" target="_blank">might use</a> 600 Wh to 1,000 Wh per cycle. A large load could be use than 1,500 Wh. Here I have assumed 800 Wh, which is typical for a medium load.</p>
@@ -1031,19 +1033,38 @@
                 <p>Standard fans <a href="https://www.wayfair.co.uk/home-improvement/sb1/box-fans-portable-fans-c1854776-a3764~477320.html" target="_blank">typically use</a> 30-75 watts, with 50 watts being a reasonable average.</p>
 
                 <h4>Small desk heater</h4>
-                <p>Small portable electric heaters typically range from 400-1,000 watts. A 400-watt heater = 400 Wh per hour.</p>
+                <p>Small portable electric heaters typically range from 400 to 1,000 watts. Here I've assumed a wattage of 750W. Using this for one hour would consume 750 Wh.</p>
 
-                <h4>Large space heater</h4>
-                <p>Large space heaters typically operate at 1,000-1,500 watts at their highest setting. 1,500 watts for one hour = 1,500 Wh.</p>
+                <h4>Space heater</h4>
+                <p>A medium space heater typically operates at around 1,500 watts (ranging from 1,000 to as much as 3,000 for large ones). That means using one for an hour would consume 1,500 Wh.</p>
 
-                <h4>Electric heat pump</h4>
-                <p>Modern high-efficiency heat pumps for single rooms (mini-splits) typically consume 400-600 watts per hour of heating operation, being 3-4 times more efficient than resistive heating.</p>
+                <h4>Electric heat pump (single room)</h4>
+                <p>Modern air-source heat pumps for single rooms (mini-splits) typically consume 600 to 1000 watts of electricity per hour of heating. This would be converted into around 1,800 to 3,000 Wh of heat.</p>
+                <p>Here we are assuming a Coefficient of Performance (CoP) value of around 3, which means 3 units of heat are generated per unit of electricity input.</p>
+                <p>These calculations are very sensitive to weather conditions, temperature settings, and the insulation of the house. These values might be typical for a moderate climate (such as the UK) in winter. In slightly warmer conditions, energy usage will be lower. In colder conditions, it would be higher.</p>
+                <p>The power draw can also be a bit lower than this once the heat pump is running.</p>
+                <p>Here, I've assumed they consume 800Wh of electricity per hour. That would supply 2,400Wh of heat.</p>
 
                 <h4>Gas heating</h4>
-                <p>Gas heating systems convert natural gas to heat. When accounting for the electrical equivalent energy, a typical gas heater for a single room = approximately 1,000 Wh per hour equivalent, though actual efficiency varies by system.</p>
+                <p>We will assume our gas heating needs to supply the same amount of heat as our heat pump: 2,400 Wh.</p>
+                <p>A gas boiler is around 90% efficient, so the energy input needed would be 2,700 Wh (2,400 * 90%).</p>
+                <p>Again, this is very sensitive to the specific boiler system, climate and heating requirements.</p>
+
+                <h4>Electric heat pump (3-bedroom house)</h4>
+                <p>We can't get a whole house figure by simply multiplying by the number of rooms. Energy consumption will depend a lot on the heat loss and fabric of the house.</p>
+                <p>In the UK, a 3-bedroom house has an area of around 90m². A building of this size might have a heat loss of around 50 to 100 W/m². We'll say 75 W/m². That would mean 6,750W of heat is required (90m² * 75 W/m²).</p>
+                <p>Getting this from a heat pump with a CoP of 3 would consume 2,250Wh of electricity per hour (6750 / 3). This is what I've assumed in our calculations. In reality, the consumption is probably lower as energy draw reduces once the heat pump is up and running.</p>
+
+                <h4>Gas heating (3-bedroom house)</h4>
+                <p>We'll use the same assumptions as above for a heat pump. We need to supply 6,750W of heat for the house.</p>
+                <p>Getting this from a 90% efficient boiler would consume 7,500Wh of gas per hour.</p>
+                <p>The average household in the UK uses around 31,000Wh of gas per day. That's equivalent to 4–5 hours of heating (a bit less if their daily total includes a gas shower etc.). In winter, these heating hours will likely be higher, and during the summer, close to zero.</p>
+                <p>I think 7,500Wh of gas per hour therefore seems reasonable (but very sensitive to a specific household's circumstances).</p>
 
                 <h4>Air conditioning</h4>
-                <p>Window or portable air conditioning units for single rooms typically use 900-1,500 watts, with 1,000 watts being a reasonable average for medium-sized rooms.</p>
+                <p>Air conditioning units for single rooms typically use 800 to 1,500 watts. I've assumed 1,000W in these calculations.</p>
+                <p>The actual energy usage will be very sensitive to climate conditions. Warmer, and especially humid climates make AC units much less efficient. Running one in a moderate, drier climate would use much less.</p>
+                <p>They can also consume less energy once they're up-and-running, so they're not always going at maximum power draw.</p>
 
                 <h3>7. Driving</h3>
                 <h4>Using an e-bike</h4>
@@ -1096,6 +1117,17 @@
                 <p>I appreciate all of the feedback and comments from users. I continue to implement fixes and updates based on these suggestions.</p>
                 <p>Here is a log of changes and improvements.</p>
 
+                <h3>27/02/2026</h3>
+                <ul>
+                    <li>Added default pre-selections when the tool initially opens, to give people a sense of differences across products. This means they're not facing a completely blank slate.</li>
+                    <li>Improved the visual design of the main chart to make it clearer and less cluttered.</li>
+                </ul>
+
+                <h3>24/02/2026</h3>
+                <ul>
+                    <li>For users with slower connections, the product list would load slowly and if they searched for products earlier, no options would appear. This has been fixed.</li>
+                </ul>
+
                 <h3>22/02/2026</h3>
                 <ul>
                     <li>Added Dehumidifer, Power Strimmers, Power Washer, and Electric shower (with heat pump) as new selection options.</li>
@@ -1131,6 +1163,8 @@
     </div>
 
     <script>
+        Chart.defaults.font.family = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
         let products = [];
         let chart = null;
 
@@ -1195,9 +1229,11 @@
             window.history.replaceState({}, '', url);
         }
 
+        const DEFAULT_CONFIG = 'lightbulb-led:1:0,boiling-a-kettle:1,washing-machine:1,air-conditioning-single-room:1:0,gas-oven:0:30,electric-shower:0:10,gas-heating-single-room:1:0,driving-an-electric-car:10,driving-a-petrol-car:10';
+
         function loadFromURL() {
             const url = new URL(window.location);
-            const configParam = url.searchParams.get('c');
+            const configParam = url.searchParams.get('c') || DEFAULT_CONFIG;
             const unitParam = url.searchParams.get('unit');
 
             // Restore distance unit preference
@@ -1647,9 +1683,9 @@
                     const distance = parseFloat(document.getElementById(`input1-${index}`).value) || 10;
                     const unit = getDistanceUnit();
                     if (unit === 'km') {
-                        return `${distance} km driven`;
+                        return `${distance} km`;
                     } else {
-                        return `${distance} mile${distance !== 1 ? 's' : ''} driven`;
+                        return `${distance} mile${distance !== 1 ? 's' : ''}`;
                     }
 
                 case 'fixed':
@@ -1835,8 +1871,8 @@
             const fuelTypes = selectedData.map(d => d.fuel);
             const displayValues = selectedData.map(d => d.displayValue);
             const barColor = viewMode === 'cost'
-                ? 'rgba(118, 154, 200, 1)'  // Muted blue for cost mode
-                : 'rgba(192, 80, 77, 1)';   // Muted red for energy mode
+                ? 'rgba(100, 143, 188, 0.85)'
+                : 'rgba(185, 72, 68, 0.82)';
             const descriptions = selectedData.map(d => d.description);
 
             const noDataDiv = document.getElementById('noData');
@@ -1871,8 +1907,9 @@
                         label: viewMode === 'cost' ? `Cost (${currency})` : 'Energy Use (Wh)',
                         data: displayValues,
                         backgroundColor: barColor,
-                        borderColor: barColor,
-                        borderWidth: 2
+                        borderWidth: 0,
+                        borderRadius: 2,
+                        maxBarThickness: 26
                     }]
                 },
                 options: {
@@ -1904,24 +1941,9 @@
                     scales: {
                         x: {
                             beginAtZero: true,
-                            title: {
-                                display: !isMobile,
-                                text: viewMode === 'cost' ? `Cost (${currency})` : 'Energy consumption (Watt-hours)',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            },
-                            ticks: {
-                                maxTicksLimit: isMobile ? 4 : 6,
-                                font: {
-                                    size: isMobile ? 10 : 12
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.03)',
-                                lineWidth: 1
-                            }
+                            title: { display: false },
+                            ticks: { display: false },
+                            grid: { display: false }
                         },
                         y: {
                             ticks: {
@@ -1930,7 +1952,8 @@
                                     size: isMobile ? 9 : 12
                                 },
                                 padding: isMobile ? 3 : 5,
-                                mirror: false
+                                mirror: false,
+                                color: 'rgba(0,0,0,0)'
                             },
                             grid: {
                                 display: false
@@ -1958,8 +1981,8 @@
                                 const desc = descriptions[index];
 
                                 // Value at the end of the bar (right side)
-                                ctx.fillStyle = '#1f2937';
-                                ctx.font = isMobile ? '10px sans-serif' : '12px sans-serif';
+                                ctx.fillStyle = '#6b7280';
+                                ctx.font = isMobile ? "10px 'Inter', sans-serif" : "11px 'Inter', sans-serif";
                                 ctx.textAlign = 'left';
                                 ctx.textBaseline = 'middle';
                                 const xPosEnd = bar.x + 10;
@@ -1969,14 +1992,22 @@
                                     : `${formatWh(data)} Wh`;
                                 ctx.fillText(label, xPosEnd, yPos);
 
-                                // Usage description under the product name (left side, right-aligned)
+                                // Both product name and description drawn manually at same x — guarantees alignment
+                                const xLabel = xScale.left - 5;
+
+                                // Product name (above centre)
+                                ctx.fillStyle = '#374151';
+                                ctx.font = isMobile ? "9px 'Inter', sans-serif" : "500 12px 'Inter', sans-serif";
+                                ctx.textAlign = 'right';
+                                ctx.textBaseline = 'bottom';
+                                ctx.fillText(selectedProducts[index], xLabel, bar.y - 1);
+
+                                // Usage description (below centre)
                                 ctx.fillStyle = '#6b7280';
-                                ctx.font = isMobile ? 'italic 8px sans-serif' : 'italic 11px sans-serif';
+                                ctx.font = isMobile ? "italic 8px 'Inter', sans-serif" : "italic 10px 'Inter', sans-serif";
                                 ctx.textAlign = 'right';
                                 ctx.textBaseline = 'top';
-                                const xPosStart = xScale.left - 5;
-                                const yPosDesc = bar.y + 8;
-                                ctx.fillText(desc, xPosStart, yPosDesc);
+                                ctx.fillText(desc, xLabel, bar.y + 3);
                             });
                         });
                     }
