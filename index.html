@@ -1118,6 +1118,11 @@
                 <p>I appreciate all of the feedback and comments from users. I continue to implement fixes and updates based on these suggestions.</p>
                 <p>Here is a log of changes and improvements.</p>
 
+                <h3>03/03/2026</h3>
+                <ul>
+                    <li>Fixed energy and cost figures for electric and gas ovens. Previous figures did not apply the duty cycle factor (ovens cycle on and off once they reach temperature), so energy use was overstated by around 45%. The corrected figures for 30 minutes of use are now 688 Wh (electric) and 825 Wh (gas), rather than 1,250 Wh and 1,500 Wh.</li>
+                </ul>
+
                 <h3>27/02/2026</h3>
                 <ul>
                     <li>Added default pre-selections when the tool initially opens, to give people a sense of differences across products. This means they're not facing a completely blank slate.</li>
@@ -1617,6 +1622,10 @@
                         const hours = input1 ? (parseFloat(input1.value) || 0) : 0;
                         const minutes = input2 ? (parseFloat(input2.value) || 0) : 0;
                         const totalHours = hours + minutes / 60;
+                        // Use fixed_wh/default_value as effective wattage to preserve cycling factors
+                        if (product.fixed_wh != null && product.default_value) {
+                            return (product.fixed_wh / product.default_value) * totalHours;
+                        }
                         return product.wattage * totalHours;
 
                     case 'cycles':
