@@ -530,14 +530,15 @@
     "fuel": "Petrol"
   },
   {
-    "name": "Driving  an electric car",
+    "name": "Driving an electric car",
     "wattage": 300.0,
     "fixed_wh": null,
     "input_type": "miles",
     "default_value": 10,
     "label": null,
     "footer_note": null,
-    "fuel": "Electricity"
+    "fuel": "Electricity",
+    "alternative_fuel_pricing": "Public Charging"
   },
   {
     "name": "Driving a petrol car",

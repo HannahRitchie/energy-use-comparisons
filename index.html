@@ -904,7 +904,7 @@
                 <p><strong>Energy (Wh) = Power (Watts) × Time (Hours)</strong></p>
                 <p>For example, a 100-watt light bulb used for 2 hours would consume 200 watt-hours of energy.</p>
                 <p>Most products on this list are electrical, but energy use for non-electric products (such as petrol car or gas heating) are converted into watt-hour equivalents.</p>
-                <p>Energy costs are available for a small selection of countries based on their national energy prices (electricity, gas and petrol). This price data is sourced from Eurostat, Ofgem, and the US EIA (based on prices for 2025 or early 2026, depending on availability). Costs reflect average household prices, and don't reflect dynamic, off-peak or smart tariffs.</p>
+                <p>Energy costs are available for a small selection of countries based on their national energy prices (electricity, gas and petrol). This price data is sourced from Eurostat, Ofgem, and the US EIA (based on prices for 2025 or early 2026, depending on availability). UK public charger pricing is based on the weighted average pay as you go price from the Zapmap index January 2026. Costs reflect average household prices, and don't reflect dynamic, off-peak or smart tariffs.</p>
                 <p>Below, I list the assumptions and sources for each product or activity. Again, the actual level of energy consumption will depend on factors such as the specific efficiency of the product, user settings, and climate so these should be interpreted as approximations to give a sense of magnitude.</p>
 
                 <h3>2. Lighting</h3>
@@ -1741,12 +1741,12 @@
         }
 
         // Energy prices by country (household/domestic prices per kWh)
-        // Source: "Prices" sheet in Energy use of products.xlsx
         // Petrol converted from per-litre using 8.9 kWh/litre (LHV, consistent with energy figures)
         // Note: UK gas entered as 5.93p/kWh, converted to £0.0593/kWh
         const countryPrices = {
             'UK': {
                 electricity: 0.2769,
+                publicCharging: 0.54,
                 gas: 0.0593,           // 5.93p/kWh ÷ 100
                 petrol: 0.1506,        // £1.34/L ÷ 8.9 kWh/L
                 petrolPerLitre: 1.34,
@@ -1871,8 +1871,12 @@
                 pricePerKwh = prices.gas;
             } else if (fuel === 'Petrol') {
                 pricePerKwh = prices.petrol;
-            } else {
-                pricePerKwh = prices.electricity;
+            } else if (fuel === 'Public Charging') {
+                pricePerKwh = prices.publicCharging;
+            } else if (fuel === 'Electricity') {
+                pricePerKwh = prices.electricity
+            }  else  {
+                return false
             }
             return wh * (pricePerKwh / 1000);
         }
@@ -1890,11 +1894,13 @@
                 if (checkbox && checkbox.checked) {
                     const energy = calculateEnergy(product, index);
                     const description = getInputDescription(product, index);
+                    const altFuelPricing = product.alternative_fuel_pricing ? {altFuelPricing: product.alternative_fuel_pricing} : {}
                     selectedData.push({
                         name: product.name,
                         energy: energy,
                         description: description,
-                        fuel: product.fuel || 'Electricity'
+                        fuel: product.fuel || 'Electricity',
+                        ...altFuelPricing
                     });
                 }
             });
@@ -1908,6 +1914,24 @@
                     ? convertWhToCost(d.energy, d.fuel)
                     : d.energy;
             });
+
+            // Add costings for alternative fuel pricing
+            if (viewMode === 'cost') {
+                const altData = []
+                for (product of selectedData) {
+                    if (product.altFuelPricing) {
+                        const altProduct = {...product}
+                        const altCost = convertWhToCost(altProduct.energy,  altProduct.altFuelPricing)
+                        if (altCost) {
+                            altProduct.name = `${altProduct.name} (${altProduct.altFuelPricing.toLowerCase()})`
+                            altProduct.displayValue = altCost
+                            altData.push(altProduct)
+                        }
+                    }
+                }
+                for (product of altData) selectedData.push(product)
+            }
+
             selectedData.sort((a, b) => b.displayValue - a.displayValue);
 
             // Extract sorted arrays
