@@ -608,5 +608,25 @@
     "label": null,
     "footer_note": null,
     "fuel": "Electricity"
+  },
+  {
+    "name": "Food",
+    "wattage": null,
+    "fixed_wh": null,
+    "input_type": "fixed",
+    "default_value": null,
+    "label": null,
+    "footer_note": null,
+    "fuel": "Electricity"
+  },
+  {
+    "name": "Eating a beef hamburger",
+    "wattage": null,
+    "fixed_wh": 7500.0,
+    "input_type": "fixed",
+    "default_value": null,
+    "label": "per quarter-pound burger",
+    "footer_note": "This figure (~7,500 Wh) represents the estimated primary energy used to produce a quarter-pound (113g) beef burger — covering feed crops, animal husbandry, processing, and distribution. It is derived from David MacKay's framework in Sustainable Energy Without the Hot Air (2009), which estimates ~31 kWh per pound of beef based on cattle metabolic requirements and feed energy inputs. Note that this is embodied/production energy — mostly fossil fuels used upstream in the supply chain — rather than electricity consumed directly at home. Estimates vary considerably by farming method (grass-fed vs. grain-fed) and system boundary assumptions; ranges of 2.5–10 kWh per burger appear in the literature.",
+    "fuel": "Electricity"
   }
 ]
